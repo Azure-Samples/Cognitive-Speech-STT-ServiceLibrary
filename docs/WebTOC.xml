@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="ae78e342-a436-4605-bc33-daef6db83bdb" Title="Microsoft.Bing.Speech" Url="html/adb8f144-6e38-98c2-d8e4-0c518e72b891.htm">
+    <HelpTOCNode Id="601b8389-6365-4356-b7d0-016dc8bba762" Title="ApplicationMetadata Class" Url="html/1f8e1a63-2dc5-1259-454b-c428600478f7.htm">
+      <HelpTOCNode Title="ApplicationMetadata Constructor " Url="html/4e30e3f7-f9a5-28e2-8a7e-519054f3e1f5.htm" />
+      <HelpTOCNode Id="64722999-ebb1-45a5-9c5b-2e661e904fdf" Title="ApplicationMetadata Properties" Url="html/cc9545cd-8a1b-bf8e-11a5-1e8e458c3041.htm">
+        <HelpTOCNode Title="Name Property " Url="html/e9052bc1-6828-d216-1884-c4fe7bd7344a.htm" />
+        <HelpTOCNode Title="Version Property " Url="html/1d22219e-f62c-084b-8ea3-5bf6ec269a54.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="0492ac30-9df6-4935-be07-d5cb6a61a3b5" Title="ClientException Class" Url="html/fb62441f-02cb-8082-f73b-32298dc99dbd.htm">
+      <HelpTOCNode Id="0d28e272-dcd6-4dcb-bcf7-1bb779228dff" Title="ClientException Constructor " Url="html/b80a976b-b2fe-fbc2-27d1-65e9fd68693d.htm">
+        <HelpTOCNode Title="ClientException Constructor " Url="html/cbdbf078-7b12-3dbd-c83e-eacaa570bc8d.htm" />
+        <HelpTOCNode Title="ClientException Constructor (String)" Url="html/7df6c183-4d7c-f9e3-7d9a-869ee3d2ab43.htm" />
+        <HelpTOCNode Title="ClientException Constructor (String, Exception)" Url="html/bcf24c5f-cbaa-961d-24a6-09ce55c87580.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="Confidence Enumeration" Url="html/c5f9dc13-15e0-ab44-9e86-c4e092266bfc.htm" />
+    <HelpTOCNode Title="DeviceFamily Enumeration" Url="html/93d8fd3e-cb58-aa84-c98a-d21cb6189494.htm" />
+    <HelpTOCNode Id="61cbb660-5766-46d9-9067-ad5eaae4b5b1" Title="DeviceMetadata Class" Url="html/fe961a6f-1316-8490-1ddd-305cb5bb0275.htm">
+      <HelpTOCNode Title="DeviceMetadata Constructor " Url="html/4635f569-a59d-ed18-79fa-f81b75f3a196.htm" />
+      <HelpTOCNode Id="8ba382ab-5a2b-4a81-975a-b3da50393bab" Title="DeviceMetadata Properties" Url="html/69f40896-aaaa-3c51-a6cf-028373966d66.htm">
+        <HelpTOCNode Title="Family Property " Url="html/5506d76b-2b3f-19a8-d517-3b2b70b96842.htm" />
+        <HelpTOCNode Title="Make Property " Url="html/8d0160dc-a556-96a2-6b62-83efe4a4b851.htm" />
+        <HelpTOCNode Title="Model Property " Url="html/8493df17-c775-2086-844d-053cc9bb27ea.htm" />
+        <HelpTOCNode Title="NetworkType Property " Url="html/66f07530-983b-161c-a604-8331e15d023e.htm" />
+        <HelpTOCNode Title="OsName Property " Url="html/c99e5bda-e340-cccc-712b-e50030286a3c.htm" />
+        <HelpTOCNode Title="OsVersion Property " Url="html/b0956736-574c-2165-1c88-df066f19bfa2.htm" />
+        <HelpTOCNode Title="Type Property " Url="html/7b91d75d-03ee-6079-b72f-024ac5fb97fb.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="DeviceType Enumeration" Url="html/959704e0-66ea-dfbb-93a3-96c34156a433.htm" />
+    <HelpTOCNode Id="9ac9321c-3726-492a-bf20-961ba5632aa0" Title="IAuthorizationProvider Interface" Url="html/d554a715-f1e2-5f9c-5137-85ad5c8e7dc1.htm">
+      <HelpTOCNode Id="4f4f1abe-094f-48b1-a6f0-b21d4b0f88a8" Title="IAuthorizationProvider Methods" Url="html/e82570c8-6006-bba6-9985-957e1458d1ec.htm">
+        <HelpTOCNode Title="GetAuthorizationTokenAsync Method " Url="html/d1da04b6-a8d9-3bfb-11ac-2920007535d5.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="53ecb932-13db-468b-8bda-2ddba9ee1361" Title="ISpeechClient Interface" Url="html/0079fefd-95e5-a37f-51fd-d7db81ce37e1.htm">
+      <HelpTOCNode Id="5c106e36-e1aa-43d8-8066-9d459d583723" Title="ISpeechClient Methods" Url="html/ad44745f-23c9-0be2-7233-0dc7357755e4.htm">
+        <HelpTOCNode Title="RecognizeAsync Method " Url="html/53916dd1-c4b2-e2d9-d05c-0c88255e4241.htm" />
+        <HelpTOCNode Title="SubscribeTo(T) Method " Url="html/e9b59791-2e71-e432-7c18-cc1484a70b0b.htm" />
+        <HelpTOCNode Title="SubscribeToPartialResult Method " Url="html/5935c1aa-aa9b-79d9-08af-5fd8986b4557.htm" />
+        <HelpTOCNode Title="SubscribeToRecognitionResult Method " Url="html/ede3cd93-defb-01b4-dd63-72119bd85263.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="NetworkType Enumeration" Url="html/a3d40b58-cf1d-e37b-37e7-8ecf29914558.htm" />
+    <HelpTOCNode Title="OsName Enumeration" Url="html/09e98f73-f2ca-7aa0-fec5-4e904984b190.htm" />
+    <HelpTOCNode Id="33882625-6b6f-4ebf-9865-4cf66e6cbffe" Title="Preferences Class" Url="html/490722a9-cbe3-4cb6-60d6-bd16ef3a499b.htm">
+      <HelpTOCNode Title="Preferences Constructor " Url="html/b4492190-ec83-290f-d519-519938e9f13a.htm" />
+      <HelpTOCNode Id="e00fb9a4-6122-493a-8265-8c6965ebc53e" Title="Preferences Properties" Url="html/4665a544-2a63-9bfa-433a-1194a8fb4cd3.htm">
+        <HelpTOCNode Title="AuthorizationProvider Property " Url="html/57549de7-716c-f4b0-36aa-a4741ede1f4a.htm" />
+        <HelpTOCNode Title="EnableAudioBuffering Property " Url="html/f7b4ea6f-34a5-b3c5-8aaf-92571390dc1c.htm" />
+        <HelpTOCNode Title="ServiceUri Property " Url="html/8679ed7f-4895-92f0-2e54-41e2b9a9a2af.htm" />
+        <HelpTOCNode Title="SpeechLanguage Property " Url="html/5295f7d2-fb34-203f-f468-dddbd797a207.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="78d997ad-c2c8-474d-8788-272bd5fefdad" Title="RecognitionPartialResult Class" Url="html/c99d8bf7-7766-1bfc-56cb-fc79bf6bbe6e.htm">
+      <HelpTOCNode Title="RecognitionPartialResult Constructor " Url="html/de4a23f9-4453-3eea-4515-cb40b0522b40.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="91616807-0070-4600-ab4f-9322d900db65" Title="RecognitionPhrase Class" Url="html/9d706b3a-8d1f-ba71-d628-fff00928c72d.htm">
+      <HelpTOCNode Title="RecognitionPhrase Constructor " Url="html/fb2101fc-3346-bd96-f1bf-d91c1aa0c69a.htm" />
+      <HelpTOCNode Id="63f1e64e-2221-43c7-a187-a6879b1b0382" Title="RecognitionPhrase Properties" Url="html/1ad8a7e2-df9e-97ad-c410-b663711eadca.htm">
+        <HelpTOCNode Title="Confidence Property " Url="html/aad5330f-cd01-409f-66e8-f877d18d5478.htm" />
+        <HelpTOCNode Title="DisplayText Property " Url="html/b32e1430-0951-ab71-1f3d-a7bdca040c74.htm" />
+        <HelpTOCNode Title="LexicalForm Property " Url="html/1a094a96-041f-92e8-c01d-5f4fe0869e4f.htm" />
+        <HelpTOCNode Title="MediaDuration Property " Url="html/f2da12b3-2f12-b52f-a70e-dcc22d26b588.htm" />
+        <HelpTOCNode Title="MediaTime Property " Url="html/1553dff5-7065-788f-0947-96687f5006f6.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="b5c2e754-e058-4dc7-a22c-43c08ee73c07" Title="RecognitionResult Class" Url="html/f77fb75f-02ee-fd4e-05fd-e642e98b3711.htm">
+      <HelpTOCNode Title="RecognitionResult Constructor " Url="html/25643e40-29ba-bba5-b5ee-9696a7059d3d.htm" />
+      <HelpTOCNode Id="47eca2c6-547b-4488-904d-1ed5c23abe64" Title="RecognitionResult Properties" Url="html/1362c9eb-b8df-ec72-4d2c-a45cc86bbe1b.htm">
+        <HelpTOCNode Title="Phrases Property " Url="html/6fb28459-14a7-811c-b3fb-684490101734.htm" />
+        <HelpTOCNode Title="RecognitionStatus Property " Url="html/e1a788dd-9d99-e4d7-af3a-4aafd58a6ce0.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="RecognitionStatus Enumeration" Url="html/995f23b0-32a0-96f6-03d1-72bd48705dcf.htm" />
+    <HelpTOCNode Id="82443861-a7c0-47cb-941b-7a85f6a71b6a" Title="RequestMetadata Class" Url="html/b88fd821-e77e-ba2a-bafb-f4ae6611c379.htm">
+      <HelpTOCNode Title="RequestMetadata Constructor " Url="html/b8476af4-cc75-1e7f-69f2-8996917837b5.htm" />
+      <HelpTOCNode Id="ab014cc0-1d05-4d0f-bed5-20fe3ad4c477" Title="RequestMetadata Properties" Url="html/f9c0ee5e-f3bf-9123-8567-e18465a1e480.htm">
+        <HelpTOCNode Title="ApplicationMetadata Property " Url="html/dcf85787-126e-a9a4-8614-089fc8aa1e05.htm" />
+        <HelpTOCNode Title="DeviceMetadata Property " Url="html/23557ef0-99fa-1a08-101c-a506670bf83b.htm" />
+        <HelpTOCNode Title="Identifier Property " Url="html/62d2b9de-000b-a84f-ac40-33498e7b13a3.htm" />
+        <HelpTOCNode Title="ServiceName Property " Url="html/59e21e60-bc18-ea40-f3cd-676322c2f156.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="2b1ce1e8-8221-42b9-b3fb-6eb19fbf3dc3" Title="ServerException Class" Url="html/c6a2c0d5-1d34-72ee-b169-5ce30ab13fba.htm">
+      <HelpTOCNode Id="e83366c3-0fd4-44b9-b472-8a17d3c1ec99" Title="ServerException Constructor " Url="html/93a4a9fa-9238-35f4-404d-1ea7e38aa261.htm">
+        <HelpTOCNode Title="ServerException Constructor " Url="html/9226a4f9-f962-7c50-6d03-db3af9037606.htm" />
+        <HelpTOCNode Title="ServerException Constructor (String)" Url="html/5b604925-d813-5e30-a034-709e8265cc69.htm" />
+        <HelpTOCNode Title="ServerException Constructor (String, Exception)" Url="html/fd11bce8-4ac6-bd49-b59d-b386f30c7f95.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="ce89a8c0-e235-4332-8a15-92e7d5d461b7" Title="SpeechClient Class" Url="html/c68cec4a-b02f-67d5-3a0b-301c3290b43d.htm">
+      <HelpTOCNode Title="SpeechClient Constructor " Url="html/ae6075cf-9137-12b4-e33c-9edab843eb5c.htm" />
+      <HelpTOCNode Id="5ab312c7-9b11-49b7-b371-dbca57ada81e" Title="SpeechClient Methods" Url="html/016012ea-dfc6-0fc0-37d1-7024db73333c.htm">
+        <HelpTOCNode Title="Dispose Method " Url="html/9c333338-f3b5-1208-5906-d4a019aa190d.htm" />
+        <HelpTOCNode Title="RecognizeAsync Method " Url="html/0e47f643-7dec-3f06-2c16-3950e725e322.htm" />
+        <HelpTOCNode Title="SubscribeTo(T) Method " Url="html/fa8f5790-a29c-f956-b2f4-3f0339f155e6.htm" />
+        <HelpTOCNode Title="SubscribeToPartialResult Method " Url="html/567eb9df-9464-451a-d8ae-b167385c5c21.htm" />
+        <HelpTOCNode Title="SubscribeToRecognitionResult Method " Url="html/b4f797b9-b6a6-ea50-ff14-2f39356c3316.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="85fc192d-da2f-4406-bb8e-0e87ae573569" Title="SpeechInput Class" Url="html/9842cbef-75d5-6057-4841-058612036a08.htm">
+      <HelpTOCNode Title="SpeechInput Constructor " Url="html/bb48cbb8-d756-459e-cbbb-cfa470396dc4.htm" />
+      <HelpTOCNode Id="b02692ca-ab9a-41a0-8d10-0b2bf857377d" Title="SpeechInput Properties" Url="html/9ade8f4a-803a-1143-6e4b-d9aa52a773c5.htm">
+        <HelpTOCNode Title="Audio Property " Url="html/346d4d45-c15f-e8a8-2320-3eefbc73bf7d.htm" />
+        <HelpTOCNode Title="RequestMetadata Property " Url="html/3393f50a-8d84-add0-5e55-f04e09b99540.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>
