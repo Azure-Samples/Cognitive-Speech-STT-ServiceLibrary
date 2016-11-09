@@ -43,7 +43,7 @@ namespace SpeechClientSample
 
         /// <summary>
         /// The entry point to this sample program. It validates the input arguments
-        /// and sends a speech recognition request using the OxfordClient API.
+        /// and sends a speech recognition request using the Microsoft.Bing.Speech APIs.
         /// </summary>
         /// <param name="args">The input arguments.</param>
         public static void Main(string[] args)
