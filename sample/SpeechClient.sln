@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechClientSample", "SpeechClientSample\SpeechClientSample.csproj", "{5DAB1D60-3378-4BD5-8744-A55D55D5F653}"
 EndProject
@@ -11,10 +11,9 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5DAB1D60-3378-4BD5-8744-A55D55D5F653}.Debug|x64.ActiveCfg = Debug|x64
-		{5DAB1D60-3378-4BD5-8744-A55D55D5F653}.Debug|x64.Build.0 = Debug|x64
-		{5DAB1D60-3378-4BD5-8744-A55D55D5F653}.Release|x64.ActiveCfg = Release|x64
-		{5DAB1D60-3378-4BD5-8744-A55D55D5F653}.Release|x64.Build.0 = Release|x64
+		{5DAB1D60-3378-4BD5-8744-A55D55D5F653}.Debug|x64.ActiveCfg = Debug|x86
+		{5DAB1D60-3378-4BD5-8744-A55D55D5F653}.Release|x64.ActiveCfg = Debug|x86
+		{5DAB1D60-3378-4BD5-8744-A55D55D5F653}.Release|x64.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
