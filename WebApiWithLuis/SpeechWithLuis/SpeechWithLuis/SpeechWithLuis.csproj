@@ -216,6 +216,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Src\AuthorizationProvider\CognitiveServicesAuthorizationProvider.cs" />
+    <Compile Include="Src\Services\LuisService.cs" />
+    <Compile Include="Src\Services\SpeechService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -287,6 +290,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Opus.NET\OpusWrapper\OpusWrapper.csproj">
+      <Project>{838bdb0b-5eb1-4c1e-9026-0a8842ac00c6}</Project>
+      <Name>OpusWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
