@@ -27,11 +27,46 @@ namespace SpeechWithLuis.Src.Services
         /// </summary>
         private static readonly Task CompletedTask = Task.FromResult(true);
 
+
+        private static readonly string subscriptionKey = "1da1bed1e00a46c5a3a953235417381c";
+
+
+        public string locale = "en-us";
+
+
         /// <summary>
         /// Cancellation token used to stop sending the audio.
         /// </summary>
         private readonly CancellationTokenSource cts = new CancellationTokenSource();
 
+
+
+        private readonly Preferences preferences;
+
+        /// <summary>
+        /// constrcutor
+        /// </summary>
+        public SpeechService()
+        {
+            preferences = new Preferences(locale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(subscriptionKey));
+        }
+
+        public async Task ReconizeAudioStream(Stream audioStream, Func<RecognitionPartialResult, Task> OnPartialResult, Func<RecognitionResult, Task> OnRecognitionResult)
+        {
+            using (var speechClient = new SpeechClient(preferences))
+            {
+                speechClient.SubscribeToPartialResult(OnPartialResult);
+                speechClient.SubscribeToRecognitionResult(OnRecognitionResult);
+
+                // create an audio content and pass it a stream.
+                var deviceMetadata = new DeviceMetadata(DeviceType.Near, DeviceFamily.Desktop, NetworkType.Ethernet, OsName.Windows, "1607", "Dell", "T3600");
+                var applicationMetadata = new ApplicationMetadata("SampleApp", "1.0.0");
+                var requestMetadata = new RequestMetadata(Guid.NewGuid(), deviceMetadata, applicationMetadata, "SampleAppService");
+
+                await speechClient.RecognizeAsync(new SpeechInput(audioStream, requestMetadata), this.cts.Token).ConfigureAwait(false);
+                audioStream.Dispose();
+            }
+        }
 
         /// <summary>
         /// Sends a speech recognition request to the speech service
@@ -87,10 +122,5 @@ namespace SpeechWithLuis.Src.Services
                 audioStream.Dispose();
             }
         }
-
-
-
-
-
     }
 }
