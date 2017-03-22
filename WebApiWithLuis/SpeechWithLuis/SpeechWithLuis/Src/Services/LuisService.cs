@@ -15,21 +15,28 @@ namespace SpeechWithLuis.Src.Services
 
         private string subscriptionKey = "";
 
+        private string appId = "";
+
         private bool verbose = true;
 
-        private string  text = "";
+        //private string  text = "";
 
-        public LuisService(string subKey, bool verbose)
+        public LuisService() : this("9ed0fa35-3fe7-4e85-8479-23fabb7aee93", "31d36350fe8e499d86f816dda9c86357") { }
+
+        public LuisService(string appId, string subKey, bool verbose = true)
         {
+            this.appId = appId;
             this.subscriptionKey = subKey;
             this.verbose = verbose;
         }
 
-        public async Task<dynamic> GetIntention()
+
+
+        public async Task<dynamic> GetIntention(string text)
         {
             using (var client = new HttpClient())
             {
-                var reponse = await client.GetAsync(string.Format(LuisService.url, this.subscriptionKey, this.verbose, this.text));
+                var reponse = await client.GetAsync(string.Format(LuisService.url, this.appId, this.subscriptionKey, this.verbose, text));
                 reponse.EnsureSuccessStatusCode();
                 string responseBody = await reponse.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<dynamic>(responseBody);

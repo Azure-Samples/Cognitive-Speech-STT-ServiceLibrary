@@ -8,17 +8,20 @@ namespace SpeechWithLuis.Controllers
 {
     public class MediaController : ApiController
     {
+        private SpeechRestService speechRestService = new SpeechRestService();
+
+        private LuisService luisService = new LuisService();
+
         [HttpPost]
-        public async Task<ResponeModel> Post([FromBody]byte[] audioSource)
+        public async Task<dynamic> Post([FromBody]byte[] audioSource)
         {
-            var service = new SpeechRestService();
-            var outs = await service.SendAudio(new MemoryStream(audioSource));
-            await Task.Delay(100);
-            return new ResponeModel
-            {
-                Text = "test",
-                Intention = "test01"
-            };
+            var outs = await speechRestService.SendAudio(new MemoryStream(audioSource));
+            var result= outs.results[0];
+            string lexical = result.name;
+            var intentions = await luisService.GetIntention(lexical);
+
+            //await Task.Delay(100);
+            return intentions;
         }
 
         [HttpGet]

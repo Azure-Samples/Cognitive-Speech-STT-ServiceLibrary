@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,9 +20,7 @@ namespace SpeechWithLuis.Src.AuthorizationProvider
         //Access token expires every 10 minutes. Renew it every 9 minutes only.
         private const int RefreshTokenDuration = 9;
 
-        private static string subKey = "1da1bed1e00a46c5a3a953235417381c";
-
-        public static Authentication auth = new Authentication(subKey);
+        private static readonly HttpClient client = new HttpClient();
 
         public Authentication(string subscriptionKey)
         {
@@ -70,23 +70,32 @@ namespace SpeechWithLuis.Src.AuthorizationProvider
 
         private async Task<string> FetchToken(string fetchUri, string subscriptionKey)
         {
-            using (var client = new HttpClient())
+            try
             {
-                try
-                {
-                    //client.DefaultRequestHeaders.Add("Content-Type", "text/xml");
-                    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                    UriBuilder uriBuilder = new UriBuilder(fetchUri);
-                    uriBuilder.Path += "/issueToken";
+                //client.DefaultRequestHeaders.Add("Content-Type", "text/xml");
+                /*
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+                UriBuilder uriBuilder = new UriBuilder(fetchUri);
+                uriBuilder.Path += "/issueToken";
 
-                    var result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null);
-                    return await result.Content.ReadAsStringAsync();
-                }
-                catch(Exception e)
-                {
-                    return null;
-                }
-                
+                var result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null);
+                return await result.Content.ReadAsStringAsync();
+                */
+                UriBuilder uriBuilder = new UriBuilder(fetchUri);
+                uriBuilder.Path += "/issueToken";
+                var request = (HttpWebRequest)WebRequest.Create(uriBuilder.Uri.AbsoluteUri);
+                request.Method = "POST";
+                request.Headers["Ocp-Apim-Subscription-Key"] = subscriptionKey;
+                request.ContentLength = 0;
+                var response = (HttpWebResponse)request.GetResponse();
+
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                return responseString;
+
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
     }

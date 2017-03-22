@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SpeechWithLuis.Src.AuthorizationProvider;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -41,29 +43,58 @@ namespace SpeechWithLuis.Src.Services
         private string contentType = @"audio/wav; codec=""audio/pcm""; samplerate=16000";
 
         private string token;
-        
+
+
+        private static string subKey = "1da1bed1e00a46c5a3a953235417381c";
 
         public SpeechRestService()
         {
-            //Authentication auth = new Authentication(subKey);
-            token = Authentication.auth.GetAccessToken();
+            Authentication auth = new Authentication(subKey);
+            token = auth.GetAccessToken();
         }
 
         public async Task<dynamic> SendAudio(Stream stream)
         {
-            HttpContent content = new StreamContent(stream);
+            stream.Position = 0;
+            var request = (HttpWebRequest)HttpWebRequest.Create(uriForUsing);
+            request.SendChunked = true;
+            request.Accept = @"application/json;text/xml";
+            request.Method = "POST";
+            request.ProtocolVersion = HttpVersion.Version11;
+            request.Host = host;
+            request.ContentType = contentType;
+            request.Headers["Authorization"] = "Bearer " + token;
 
-            using (var client = new HttpClient())
+            byte[] buffer = null;
+            int bytesRead = 0;
+            using (Stream requestStream = request.GetRequestStream())
             {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var reponse = await client.PostAsync(uriForUsing, content);
-                reponse.EnsureSuccessStatusCode();
-                string responseBody = await reponse.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<dynamic>(responseBody);
+                /*
+                 * Read 1024 raw bytes from the input audio file.
+                 */
+                buffer = new Byte[checked((uint)Math.Min(1024, (int)stream.Length))];
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
+                {
+                    requestStream.Write(buffer, 0, bytesRead);
+                }
+
+                // Flush
+                requestStream.Flush();
             }
 
-            //return null;
+            var responseString = "";
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                {
+                    responseString = sr.ReadToEnd();
+                }
+
+                Console.WriteLine(responseString);
+            }
+
+            //return JsonConvert.DeserializeObject<dynamic>(responseString);
+            return JObject.Parse(responseString);
         }
 
     }
