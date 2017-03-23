@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SpeechWithLuis.Src.Static;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace SpeechWithLuis.Src.Services
 
         //private string  text = "";
 
-        public LuisService() : this("9ed0fa35-3fe7-4e85-8479-23fabb7aee93", "31d36350fe8e499d86f816dda9c86357") { }
+        public LuisService() : this(Configurations.luisAppId, Configurations.luisSubKey) { }
 
         public LuisService(string appId, string subKey, bool verbose = true)
         {

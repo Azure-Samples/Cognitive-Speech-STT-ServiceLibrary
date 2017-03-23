@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SpeechWithLuis.Src.AuthorizationProvider;
+using SpeechWithLuis.Src.Static;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,12 +46,12 @@ namespace SpeechWithLuis.Src.Services
         private string token;
 
 
-        private static string subKey = "1da1bed1e00a46c5a3a953235417381c";
+        //private static string subKey = "1da1bed1e00a46c5a3a953235417381c";
 
         public SpeechRestService()
         {
-            Authentication auth = new Authentication(subKey);
-            token = auth.GetAccessToken();
+            //Authentication auth = new Authentication(Configurations.speechSubKey);
+            token = InstanceFactory.Authentication.GetAccessToken();
         }
 
         public async Task<dynamic> SendAudio(Stream stream)

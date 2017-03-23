@@ -9,10 +9,10 @@ namespace SpeechWithLuis.Src.Model
     {
         public string Text { get; set; }
 
-        public string Intention { get; set; }
+        public dynamic intentions { get; set; }
 
-        public LuisIntent[] LuisIntents { get; set; }
+        public string ArrivalTime { get; set; }
 
-        public LuisEntity[] LuisEntities { get; set; }
+        public string EndTime { get; set; } 
     }
 }
