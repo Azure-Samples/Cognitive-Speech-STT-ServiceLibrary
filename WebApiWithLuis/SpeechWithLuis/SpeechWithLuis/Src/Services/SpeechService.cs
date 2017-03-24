@@ -1,5 +1,6 @@
 ﻿using Microsoft.Bing.Speech;
 using SpeechWithLuis.Src.AuthorizationProvider;
+using SpeechWithLuis.Src.Static;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,11 +29,7 @@ namespace SpeechWithLuis.Src.Services
         private static readonly Task CompletedTask = Task.FromResult(true);
 
 
-        private static readonly string subscriptionKey = "1da1bed1e00a46c5a3a953235417381c";
-
-
         public string locale = "en-us";
-
 
         /// <summary>
         /// Cancellation token used to stop sending the audio.
@@ -48,9 +45,42 @@ namespace SpeechWithLuis.Src.Services
         /// </summary>
         public SpeechService()
         {
-            preferences = new Preferences(locale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(subscriptionKey));
+            preferences = new Preferences(locale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(Configurations.speechSubKey));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locale">lang para</param>
+        public SpeechService(string locale = "en-us")
+        {
+            preferences = new Preferences(locale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(Configurations.speechSubKey));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="audioStream"></param>
+        /// <returns></returns>
+        public async Task<RecognitionPhrase> ReconizeAudioStreamAsync(Stream audioStream)
+        {
+            var t = new TaskCompletionSource<RecognitionPhrase>();
+            await ReconizeAudioStream(audioStream, null, (result) => {
+                var phrase = result.Phrases;
+                var maxValue = phrase.Max(x => x.Confidence);
+                t.SetResult(phrase.First(x => x.Confidence == maxValue));
+                return Task.FromResult("");
+            });
+            return await t.Task;
+        }
+
+        /// <summary>
+        /// get recognition from audio stream 
+        /// </summary>
+        /// <param name="audioStream">the audio stream</param>
+        /// <param name="OnPartialResult">realtime outcome</param>
+        /// <param name="OnRecognitionResult">the last outcome</param>
+        /// <returns></returns>
         public async Task ReconizeAudioStream(Stream audioStream, Func<RecognitionPartialResult, Task> OnPartialResult, Func<RecognitionResult, Task> OnRecognitionResult)
         {
             using (var speechClient = new SpeechClient(preferences))

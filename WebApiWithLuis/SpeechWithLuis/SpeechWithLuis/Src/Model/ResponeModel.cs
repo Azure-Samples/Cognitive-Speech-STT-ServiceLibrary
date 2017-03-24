@@ -11,8 +11,13 @@ namespace SpeechWithLuis.Src.Model
 
         public dynamic intentions { get; set; }
 
-        public string ArrivalTime { get; set; }
+        public long GetAudioTextLantency { get; set; }
 
-        public string EndTime { get; set; } 
+        public long GetAudioIntentionLantency { get; set; }
+
+        public DateTime ArrivalTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
     }
 }

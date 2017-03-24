@@ -48,11 +48,7 @@ namespace SpeechWithLuis.Src.Services
 
         //private static string subKey = "1da1bed1e00a46c5a3a953235417381c";
 
-        public SpeechRestService()
-        {
-            //Authentication auth = new Authentication(Configurations.speechSubKey);
-            token = InstanceFactory.Authentication.GetAccessToken();
-        }
+        public SpeechRestService(){}
 
         public async Task<dynamic> SendAudio(Stream stream)
         {
@@ -64,7 +60,7 @@ namespace SpeechWithLuis.Src.Services
             request.ProtocolVersion = HttpVersion.Version11;
             request.Host = host;
             request.ContentType = contentType;
-            request.Headers["Authorization"] = "Bearer " + token;
+            request.Headers["Authorization"] = "Bearer " + InstanceFactory.Authentication.GetAccessToken();
 
             byte[] buffer = null;
             int bytesRead = 0;

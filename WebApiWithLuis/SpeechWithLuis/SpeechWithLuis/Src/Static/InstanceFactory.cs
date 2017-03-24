@@ -14,5 +14,10 @@ namespace SpeechWithLuis.Src.Static
         public static SpeechRestService SpeechRestService = new SpeechRestService();
 
         public static LuisService LuisService = new LuisService();
+
+        public static SpeechService CreateSpeechServiceWithLocale(string locale = "zh-cn")
+        {
+            return new SpeechService(locale);
+        }
     }
 }
