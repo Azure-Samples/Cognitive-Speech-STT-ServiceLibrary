@@ -1,194 +1,88 @@
-﻿/**
-Copyright (c) Microsoft Corporation
-All rights reserved. 
-MIT License
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-**/
+﻿// http://www.c-sharpcenter.com/Tutorial/UnManaged.htm
+
+
+using System.Runtime.InteropServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Web;
-using System.Threading;
-using System.Net.Http;
+using SpeechConsole.FileOperation;
 
-namespace SpeechSample
+class call_dll
 {
-    /*
-     * This class demonstrates how to get a valid O-auth token.
-     */
-    public class Authentication
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    private struct STRUCT_DLL
     {
-        public static readonly string FetchTokenUri = "https://api.cognitive.microsoft.com/sts/v1.0";
-        private string subscriptionKey;
-        private string token;
-        private Timer accessTokenRenewer;
-
-        //Access token expires every 10 minutes. Renew it every 9 minutes only.
-        private const int RefreshTokenDuration = 9;
-
-        public Authentication(string subscriptionKey)
-        {
-            this.subscriptionKey = subscriptionKey;
-            this.token = FetchToken(FetchTokenUri, subscriptionKey).Result;
-
-            // renew the token every specfied minutes
-            accessTokenRenewer = new Timer(new TimerCallback(OnTokenExpiredCallback),
-                                           this,
-                                           TimeSpan.FromMinutes(RefreshTokenDuration),
-                                           TimeSpan.FromMilliseconds(-1));
-        }
-
-        public string GetAccessToken()
-        {
-            return this.token;
-        }
-
-        private void RenewAccessToken()
-        {
-            this.token = FetchToken(FetchTokenUri, this.subscriptionKey).Result;
-            Console.WriteLine("Renewed token.");
-        }
-
-        private void OnTokenExpiredCallback(object stateInfo)
-        {
-            try
-            {
-                RenewAccessToken();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(string.Format("Failed renewing access token. Details: {0}", ex.Message));
-            }
-            finally
-            {
-                try
-                {
-                    accessTokenRenewer.Change(TimeSpan.FromMinutes(RefreshTokenDuration), TimeSpan.FromMilliseconds(-1));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(string.Format("Failed to reschedule the timer to renew access token. Details: {0}", ex.Message));
-                }
-            }
-        }
-
-        private async Task<string> FetchToken(string fetchUri, string subscriptionKey)
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-                UriBuilder uriBuilder = new UriBuilder(fetchUri);
-                uriBuilder.Path += "/issueToken";
-
-                var result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null);
-                return await result.Content.ReadAsStringAsync();
-            }
-        }
+        public Int32 count_int;
+        public IntPtr ints;
     }
 
-    /*
-     * This sample program shows how to send an speech recognition request to the 
-     * Microsoft Speech service.      
-     */
-    class Program
+    [DllImport("mingw_dll.dll", CallingConvention = CallingConvention.Cdecl)]
+    private static extern int func_dll(
+        int an_int,
+        [MarshalAs(UnmanagedType.LPArray)] byte[] string_filled_in_dll,
+        ref STRUCT_DLL s
+     );
+
+    [DllImport("decoderdll.dll", CallingConvention = CallingConvention.Cdecl)]
+    private unsafe static extern int GetResult(
+        int an_int,
+        byte** buffer 
+     );
+
+    [DllImport("decoderdll.dll", CallingConvention = CallingConvention.Cdecl)]
+    private unsafe static extern int SilkDecoderToPcm(
+        byte[] jBuffers,
+        int size,
+        short** outBuffer,
+        int* length
+     );
+
+    public static void Main()
     {
-        static void Main(string[] args)
+
+        byte[] string_filled_in_dll = new byte[21];
+
+
+        STRUCT_DLL struct_dll = new STRUCT_DLL();
+        struct_dll.count_int = 5;
+        int[] ia = new int[5];
+        ia[0] = 2; ia[1] = 3; ia[2] = 5; ia[3] = 8; ia[4] = 13;
+        byte[] buffer = {
+            Convert.ToByte('a'),
+            Convert.ToByte('a'),
+            Convert.ToByte('a'),
+            Convert.ToByte('a') };
+
+
+        GCHandle gch = GCHandle.Alloc(ia);
+        struct_dll.ints = Marshal.UnsafeAddrOfPinnedArrayElement(ia, 0);
+
+        //int ret = func_dll(5, string_filled_in_dll, ref struct_dll);
+        int ret;
+        unsafe
         {
-
-            // Note: Sign up at http://www.projectoxford.ai to get a subscription key.  Search for Speech APIs from Azure Marketplace.  
-            // Use the subscription key as Client secret below.
-            Authentication auth = new Authentication("1da1bed1e00a46c5a3a953235417381c");
-
-            string requestUri = args[0].Trim(new char[] { '/', '?' });
-
-            /* URI Params. Refer to the README file for more information. */
-            requestUri += @"?scenarios=smd";                                  // websearch is the other main option.
-            requestUri += @"&appid=D4D52672-91D7-4C74-8AD8-42B1D98141A5";     // You must use this ID.
-            requestUri += @"&locale=en-US";                                   // We support several other languages.  Refer to README file.
-            requestUri += @"&device.os=wp7";
-            requestUri += @"&version=3.0";
-            requestUri += @"&format=json";
-            requestUri += @"&instanceid=565D69FF-E928-4B7E-87DA-9A750B96D9E3";
-            requestUri += @"&requestid=" + Guid.NewGuid().ToString();
-
-            string host = @"speech.platform.bing.com";
-            string contentType = @"audio/wav; codec=""audio/pcm""; samplerate=16000";
-
-            /*
-             * Input your own audio file or use read from a microphone stream directly.
-             */
-            string audioFile = args[1];
-            string responseString;
-            FileStream fs = null;
-
-            try
-            {
-                var token = auth.GetAccessToken();
-                Console.WriteLine("Token: {0}\n", token);
-                Console.WriteLine("Request Uri: " + requestUri + Environment.NewLine);
-
-                HttpWebRequest request = null;
-                request = (HttpWebRequest)HttpWebRequest.Create(requestUri);
-                request.SendChunked = true;
-                request.Accept = @"application/json;text/xml";
-                request.Method = "POST";
-                request.ProtocolVersion = HttpVersion.Version11;
-                request.Host = host;
-                request.ContentType = contentType;
-                request.Headers["Authorization"] = "Bearer " + token;
-
-                using (fs = new FileStream(audioFile, FileMode.Open, FileAccess.Read))
-                {
-
-                    /*
-                     * Open a request stream and write 1024 byte chunks in the stream one at a time.
-                     */
-                    byte[] buffer = null;
-                    int bytesRead = 0;
-                    using (Stream requestStream = request.GetRequestStream())
-                    {
-                        /*
-                         * Read 1024 raw bytes from the input audio file.
-                         */
-                        buffer = new Byte[checked((uint)Math.Min(1024, (int)fs.Length))];
-                        while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) != 0)
-                        {
-                            requestStream.Write(buffer, 0, bytesRead);
-                        }
-
-                        // Flush
-                        requestStream.Flush();
-                    }
-
-                    /*
-                     * Get the response from the service.
-                     */
-                    Console.WriteLine("Response:");
-                    using (WebResponse response = request.GetResponse())
-                    {
-                        Console.WriteLine(((HttpWebResponse)response).StatusCode);
-
-                        using (StreamReader sr = new StreamReader(response.GetResponseStream()))
-                        {
-                            responseString = sr.ReadToEnd();
-                        }
-
-                        Console.WriteLine(responseString);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                Console.WriteLine(ex.Message);
-            }
+            byte* buffer_x;
+            ret = GetResult(5, &buffer_x);
         }
+
+        var bytes = PcmReader.GetFileBytes();
+        var len = bytes.GetLength(0);
+        unsafe
+        {
+            short* buffer_y;
+            Int32 length;
+            SilkDecoderToPcm(bytes, len, &buffer_y, &length);
+            short[] buffers = new short[length];
+            //Marshal.Copy(Marshal.AllocHGlobal(buffer_y[0]), buffers, 0 , length);
+            for(int i=0; i< length; i++)
+            {
+                buffers[i] = buffer_y[i];
+            }
+            PcmWriter.WriteShorts(buffers);
+        }
+
+        Console.WriteLine("buffer: {0}", buffer[0]);
+        Console.WriteLine("Return Value: " + ret);
+        Console.WriteLine("String filled in DLL: " + System.Text.Encoding.ASCII.GetString(string_filled_in_dll));
+
     }
 }

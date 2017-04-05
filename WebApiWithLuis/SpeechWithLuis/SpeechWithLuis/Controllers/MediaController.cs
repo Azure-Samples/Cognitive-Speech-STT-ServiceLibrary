@@ -25,7 +25,9 @@ namespace SpeechWithLuis.Controllers
             var arrivalTime = DateTime.UtcNow;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            var outs = await speechRestService.SendAudio(new MemoryStream(audioSource));
+            var outs = speechRestService
+                .UseLocale(locale)
+                .SendAudio(new MemoryStream(audioSource));
             var result= outs.results[0];
             string lexical = result.name;
             /*

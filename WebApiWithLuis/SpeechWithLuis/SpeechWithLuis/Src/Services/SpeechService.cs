@@ -29,7 +29,7 @@ namespace SpeechWithLuis.Src.Services
         private static readonly Task CompletedTask = Task.FromResult(true);
 
 
-        public string locale = "en-us";
+        public string locale = "zh-cn";
 
         /// <summary>
         /// Cancellation token used to stop sending the audio.
@@ -52,9 +52,9 @@ namespace SpeechWithLuis.Src.Services
         /// 
         /// </summary>
         /// <param name="locale">lang para</param>
-        public SpeechService(string locale = "en-us")
+        public SpeechService(string mylocale)
         {
-            preferences = new Preferences(locale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(Configurations.speechSubKey));
+            preferences = new Preferences(mylocale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(Configurations.speechSubKey));
         }
 
         /// <summary>

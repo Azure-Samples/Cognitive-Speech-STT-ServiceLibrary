@@ -28,7 +28,7 @@ namespace SpeechWithLuis.Src.Services
             /* URI Params. Refer to the README file for more information. */
             requestUri += @"?scenarios=smd";                                  // websearch is the other main option.
             requestUri += @"&appid=D4D52672-91D7-4C74-8AD8-42B1D98141A5";     // You must use this ID.
-            requestUri += @"&locale=en-US";                                   // We support several other languages.  Refer to README file.
+            requestUri += @"&locale=en-us";                                   // We support several other languages.  Refer to README file.
             requestUri += @"&device.os=wp7";
             requestUri += @"&version=3.0";
             requestUri += @"&format=json";
@@ -43,14 +43,9 @@ namespace SpeechWithLuis.Src.Services
 
         private string contentType = @"audio/wav; codec=""audio/pcm""; samplerate=16000";
 
-        private string token;
-
-
         //private static string subKey = "1da1bed1e00a46c5a3a953235417381c";
 
-        public SpeechRestService(){}
-
-        public async Task<dynamic> SendAudio(Stream stream)
+        public dynamic SendAudio(Stream stream)
         {
             stream.Position = 0;
             var request = (HttpWebRequest)HttpWebRequest.Create(uriForUsing);
@@ -87,11 +82,17 @@ namespace SpeechWithLuis.Src.Services
                     responseString = sr.ReadToEnd();
                 }
 
-                Console.WriteLine(responseString);
+                //Console.WriteLine(responseString);
             }
 
             //return JsonConvert.DeserializeObject<dynamic>(responseString);
             return JObject.Parse(responseString);
+        }
+
+        public SpeechRestService UseLocale(string locale)
+        {
+            uriForUsing = uriForUsing.Replace("&locale=en-us", "&locale=" + locale);
+            return this;
         }
 
     }
