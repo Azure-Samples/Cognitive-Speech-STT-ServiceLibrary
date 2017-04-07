@@ -89,6 +89,38 @@ namespace SpeechWithLuis.Src.Services
             return JObject.Parse(responseString);
         }
 
+        public dynamic SendAudio(byte[] audioArray, int length)
+        {
+            var request = (HttpWebRequest)HttpWebRequest.Create(uriForUsing);
+            request.SendChunked = true;
+            request.Accept = @"application/json;text/xml";
+            request.Method = "POST";
+            request.ProtocolVersion = HttpVersion.Version11;
+            request.Host = host;
+            request.ContentType = contentType;
+            request.Headers["Authorization"] = "Bearer " + InstanceFactory.Authentication.GetAccessToken();
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(audioArray, 0, audioArray.Count<byte>());
+                // Flush
+                requestStream.Flush();
+            }
+
+            var responseString = "";
+            using (WebResponse response = request.GetResponse())
+            {
+                using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                {
+                    responseString = sr.ReadToEnd();
+                }
+
+                //Console.WriteLine(responseString);
+            }
+
+            //return JsonConvert.DeserializeObject<dynamic>(responseString);
+            return JObject.Parse(responseString);
+        }
+
         public SpeechRestService UseLocale(string locale)
         {
             uriForUsing = uriForUsing.Replace("&locale=en-us", "&locale=" + locale);

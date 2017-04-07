@@ -5,18 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpeechConsole.FileOperation
+namespace Silk2WavCommon.FileOperation
 {
     public class PcmReader
     {
-        public static string path = @"phpBV6Z6a.silk";
-
-        public static Byte[] GetFileBytes()
-        {
-            var bytes = File.ReadAllBytes(path);
-            return bytes;
-        }
-
         public static Byte[] GetFileBytesViaPath(string mypath)
         {
             var bytes = File.ReadAllBytes(mypath);

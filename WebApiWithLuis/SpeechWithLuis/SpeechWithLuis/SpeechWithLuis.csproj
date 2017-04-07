@@ -220,6 +220,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
+    <Compile Include="Controllers\SilkController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -235,7 +236,6 @@
     <Compile Include="Src\Model\PostParms.cs" />
     <Compile Include="Src\Model\ResponeModel.cs" />
     <Compile Include="Src\Services\LuisService.cs" />
-    <Compile Include="Src\Services\OpusService.cs" />
     <Compile Include="Src\Services\SpeechRestService.cs" />
     <Compile Include="Src\Services\SpeechService.cs" />
     <Compile Include="Src\Static\Configurations.cs" />
@@ -316,9 +316,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Opus.NET\OpusWrapper\OpusWrapper.csproj">
-      <Project>{838bdb0b-5eb1-4c1e-9026-0a8842ac00c6}</Project>
-      <Name>OpusWrapper</Name>
+    <ProjectReference Include="..\Silk2WavCommon\Silk2WavCommon.csproj">
+      <Project>{8633bd9b-e8aa-4459-930f-10bdf9bfa654}</Project>
+      <Name>Silk2WavCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -335,7 +335,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57993</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

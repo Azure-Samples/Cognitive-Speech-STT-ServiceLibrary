@@ -4,6 +4,9 @@
 using System.Runtime.InteropServices;
 using System;
 using SpeechConsole.FileOperation;
+using SpeechConsole.Web;
+using SpeechConsole.PcmConverter;
+using Silk2WavCommon.Silk2WavConverter;
 
 class call_dll
 {
@@ -38,7 +41,18 @@ class call_dll
 
     public static void Main()
     {
+        
+        var bytes = PcmReader.GetFileBytes();
+        var len = bytes.GetLength(0);
+        var silk2Wav = new Silk2Wav(bytes, len);
+        var outs = AudioPost.SendAudioFile(silk2Wav.WavBytes, silk2Wav.WavBytesLen);
+       
+        //bak();
+    }
 
+
+    static void bak()
+    {
         byte[] string_filled_in_dll = new byte[21];
 
 
@@ -66,23 +80,36 @@ class call_dll
 
         var bytes = PcmReader.GetFileBytes();
         var len = bytes.GetLength(0);
+        byte[] buffers;
+        int count = 0;
         unsafe
         {
             short* buffer_y;
             Int32 length;
             SilkDecoderToPcm(bytes, len, &buffer_y, &length);
-            short[] buffers = new short[length];
+            buffers = new byte[length * 2];
             //Marshal.Copy(Marshal.AllocHGlobal(buffer_y[0]), buffers, 0 , length);
-            for(int i=0; i< length; i++)
+            for (int i = 0; i < length; i++)
             {
-                buffers[i] = buffer_y[i];
+                var temps = BitConverter.GetBytes(buffer_y[i]);
+                buffers[i * 2] = temps[0];
+                buffers[i * 2 + 1] = temps[1];
             }
-            PcmWriter.WriteShorts(buffers);
+            PcmWriter.WriteBytes(buffers);
+            count = length * 2;
         }
+        /*
+        var mybytes = PcmReader.GetFileBytesViaPath("phpBV6Z6a.wav");
+        var mylen = mybytes.GetLength(0);
+        */
+        var wav = new Pcm2Wav(buffers);
+        //PcmWriter.WriteBytes2SpecificFile(wav.WavBytes, "test.wav");
+        var outs = AudioPost.SendAudioFile(wav.WavBytes, wav.WavLength);
+
+
 
         Console.WriteLine("buffer: {0}", buffer[0]);
         Console.WriteLine("Return Value: " + ret);
         Console.WriteLine("String filled in DLL: " + System.Text.Encoding.ASCII.GetString(string_filled_in_dll));
-
     }
 }
