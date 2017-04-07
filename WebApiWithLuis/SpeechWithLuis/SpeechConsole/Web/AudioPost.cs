@@ -14,7 +14,7 @@ namespace SpeechConsole.Web
 {
     public class AudioPost
     {
-        static string URI = "https://opgwebsilk.azurewebsites.net/api/Silk?locale=zh-cn";
+        static string URI = "https://opgwebsilk.azurewebsites.net/api/Silk?locale=zh-cn&withIntent=true";
 
         public static async Task<string> SendAudioFile(Byte[] bytes, int count)
         {

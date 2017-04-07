@@ -22,7 +22,7 @@ namespace SpeechWithLuis.Controllers
         private SpeechService speechService = InstanceFactory.CreateSpeechServiceWithLocale();
 
         [HttpPost]
-        public async Task<dynamic> Post([FromBody]byte[] audioSource, string locale)
+        public async Task<dynamic> Post([FromBody]byte[] audioSource, string locale, bool withIntent = true)
         {
             long tsWhenGetAudioText = 0;
             long tsWhenGetAudioIntention = 0;
@@ -42,10 +42,15 @@ namespace SpeechWithLuis.Controllers
             */
             stopWatch.Stop();
             tsWhenGetAudioText = stopWatch.ElapsedMilliseconds;
-            stopWatch.Restart();
-            var intentions = await luisService.GetIntention(lexical);
-            stopWatch.Stop();
-            tsWhenGetAudioIntention = stopWatch.ElapsedMilliseconds;
+            dynamic intentions = null;
+
+            if (withIntent)
+            {
+                stopWatch.Restart();
+                intentions = await luisService.GetIntention(lexical);
+                stopWatch.Stop();
+                tsWhenGetAudioIntention = stopWatch.ElapsedMilliseconds;
+            }
 
             return new ResponeModel
             {

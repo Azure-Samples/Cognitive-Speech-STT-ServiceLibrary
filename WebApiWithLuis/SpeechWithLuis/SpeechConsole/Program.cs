@@ -46,6 +46,7 @@ class call_dll
         var len = bytes.GetLength(0);
         //var silk2Wav = new Silk2Wav(bytes, len);
         var outs = AudioPost.SendAudioFile(bytes, len);
+        Console.WriteLine(outs);
        
         //bak();
     }
