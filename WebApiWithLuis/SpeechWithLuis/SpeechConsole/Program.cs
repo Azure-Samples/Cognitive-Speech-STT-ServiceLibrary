@@ -44,8 +44,8 @@ class call_dll
         
         var bytes = PcmReader.GetFileBytes();
         var len = bytes.GetLength(0);
-        var silk2Wav = new Silk2Wav(bytes, len);
-        var outs = AudioPost.SendAudioFile(silk2Wav.WavBytes, silk2Wav.WavBytesLen);
+        //var silk2Wav = new Silk2Wav(bytes, len);
+        var outs = AudioPost.SendAudioFile(bytes, len);
        
         //bak();
     }

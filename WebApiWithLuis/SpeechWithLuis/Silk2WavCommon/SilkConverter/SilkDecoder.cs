@@ -16,6 +16,15 @@ namespace Silk2WavCommon.SilkConverter
         );
 
         [DllImport(@"\SilkConverter\decoderdll.dll", CallingConvention = CallingConvention.Cdecl)]
+        private unsafe static extern void CleanBytePointer(byte *ptr);
+
+        [DllImport(@"\SilkConverter\decoderdll.dll", CallingConvention = CallingConvention.Cdecl)]
+        private unsafe static extern void CleanShortPointer(short* ptr);
+
+        [DllImport(@"\SilkConverter\decoderdll.dll", CallingConvention = CallingConvention.Cdecl)]
+        private unsafe static extern void CleanIntPointer(int* ptr);
+
+        [DllImport(@"\SilkConverter\decoderdll.dll", CallingConvention = CallingConvention.Cdecl)]
         private unsafe static extern int SilkDecoderToPcm(
             byte[] jBuffers,
             int size,
@@ -40,6 +49,9 @@ namespace Silk2WavCommon.SilkConverter
                     buffers[i * 2] = temps[0];
                     buffers[i * 2 + 1] = temps[1];
                 }
+                // do free task
+                CleanShortPointer(buffer_y);
+
                 count = length * 2;
                 outpus = buffers;
                 outputLen = count;
