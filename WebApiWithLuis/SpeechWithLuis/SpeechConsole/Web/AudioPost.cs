@@ -14,9 +14,9 @@ namespace SpeechConsole.Web
 {
     public class AudioPost
     {
-        static string URI = "https://opgwebsilk.azurewebsites.net/api/Silk?locale=zh-cn&withIntent=true";
+        static string URI = "https://opgwebsilk.azurewebsites.net/api/Silk?locale=zh-cn&withIntent=false";
 
-        public static async Task<string> SendAudioFile(Byte[] bytes, int count)
+        public static string SendAudioFile(Byte[] bytes, int count)
         {
             string _ContentType = @"audio/wav; codec=""audio/pcm""; samplerate=16000";
             var request = (HttpWebRequest)HttpWebRequest.Create(URI);
@@ -47,11 +47,12 @@ namespace SpeechConsole.Web
                     //Console.WriteLine(responseString);
                 }
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 throw e;
             }
-            
+
 
             return responseString;
 

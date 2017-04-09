@@ -274,7 +274,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\OpgWebSilk - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\OpgWebSilk - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\OpgWebSilk - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\OpgWebSilk - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

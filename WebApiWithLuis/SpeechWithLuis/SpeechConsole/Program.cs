@@ -7,6 +7,7 @@ using SpeechConsole.FileOperation;
 using SpeechConsole.Web;
 using SpeechConsole.PcmConverter;
 using Silk2WavCommon.Silk2WavConverter;
+using System.Diagnostics;
 
 class call_dll
 {
@@ -44,9 +45,12 @@ class call_dll
         
         var bytes = PcmReader.GetFileBytes();
         var len = bytes.GetLength(0);
+        Stopwatch stopWatch = new Stopwatch();
+        stopWatch.Start();
         //var silk2Wav = new Silk2Wav(bytes, len);
         var outs = AudioPost.SendAudioFile(bytes, len);
-        Console.WriteLine(outs);
+        stopWatch.Stop();
+        Console.WriteLine(outs + " + timeSpan: " + stopWatch.ElapsedMilliseconds);
        
         //bak();
     }
