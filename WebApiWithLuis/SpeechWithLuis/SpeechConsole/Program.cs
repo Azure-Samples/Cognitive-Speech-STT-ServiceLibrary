@@ -43,14 +43,17 @@ class call_dll
     public static void Main()
     {
         
-        var bytes = PcmReader.GetFileBytes();
+        var bytes = PcmReader.GetFileBytes("sunli.silk");
         var len = bytes.GetLength(0);
-        Stopwatch stopWatch = new Stopwatch();
-        stopWatch.Start();
-        //var silk2Wav = new Silk2Wav(bytes, len);
-        var outs = AudioPost.SendAudioFile(bytes, len);
-        stopWatch.Stop();
-        Console.WriteLine(outs + " + timeSpan: " + stopWatch.ElapsedMilliseconds);
+        while (true)
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            //var silk2Wav = new Silk2Wav(bytes, len);
+            var outs = AudioPost.SendAudioFile(bytes, len);
+            stopWatch.Stop();
+            Console.WriteLine(outs + " + timeSpan: " + stopWatch.ElapsedMilliseconds);
+        }
        
         //bak();
     }

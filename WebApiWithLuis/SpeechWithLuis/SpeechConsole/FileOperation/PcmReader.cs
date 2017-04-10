@@ -17,7 +17,7 @@ namespace SpeechConsole.FileOperation
             return bytes;
         }
 
-        public static Byte[] GetFileBytesViaPath(string mypath)
+        public static Byte[] GetFileBytes(string mypath)
         {
             var bytes = File.ReadAllBytes(mypath);
             return bytes;

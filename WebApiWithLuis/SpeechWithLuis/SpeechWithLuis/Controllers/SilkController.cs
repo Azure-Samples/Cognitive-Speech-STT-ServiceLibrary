@@ -30,12 +30,12 @@ namespace SpeechWithLuis.Controllers
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             var silk2Wav = new Silk2Wav(audioSource, audioSource.Count<byte>());
-
             var outs = speechRestService
                 .UseLocale(locale)
                 .SendAudio(silk2Wav.WavBytes, silk2Wav.WavBytesLen);
             var result = outs.results[0];
             string lexical = result.name;
+            string content = result.lexical;
             /*
             var outs = await speechService.ReconizeAudioStreamAsync(new MemoryStream(audioSource));
             string lexical = outs.DisplayText;
@@ -54,7 +54,7 @@ namespace SpeechWithLuis.Controllers
 
             return new ResponeModel
             {
-                Text = lexical,
+                Text = content,
                 intentions = intentions,
                 GetAudioTextLantency = tsWhenGetAudioText,
                 GetAudioIntentionLantency = tsWhenGetAudioIntention,
