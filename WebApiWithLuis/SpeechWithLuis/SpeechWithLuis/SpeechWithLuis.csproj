@@ -278,6 +278,8 @@
     <None Include="Properties\PublishProfiles\OpgWebSilk - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\OpgWebSilk - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\OpgWebSilk - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\OpgWebSilk-OpgWebSilkSlo - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\OpgWebSilk-OpgWebSilkSlo - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

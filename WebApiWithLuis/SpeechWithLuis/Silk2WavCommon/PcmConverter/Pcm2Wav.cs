@@ -36,6 +36,13 @@ namespace Silk2WavCommon.PcmConverter
         }
 
 
+        private static byte[] headerCache = null;
+
+        private static int _sampleRateCache = 16000;
+
+        private static int _bitsPerSampleCache = 16;
+
+        private static int _numOfChannelCache = 1;
 
         private List<byte> _forByteConvert;
 
@@ -89,10 +96,32 @@ namespace Silk2WavCommon.PcmConverter
 
         }
 
+        private byte[] GetWavHeaderFromCache()
+        {
+            if(headerCache == null)
+            {
+                headerCache = GetWavHeader();
+                //_headerLen = headerCache.Count();
+            }
+            else
+            {
+                if(_sampleRateCache.Equals(_sampleRate) && _bitsPerSampleCache.Equals(_bitsPerSample) && _numOfChannelCache.Equals(_numOfChannel))
+                {
+                    _headerLen = headerCache.Count();
+                    return headerCache;
+                }
+
+                //_headerLen = headerCache.Count();
+                headerCache = GetWavHeader();
+
+            }
+
+            return headerCache;
+        }
 
         private byte[] GetWaveBytes()
         {
-            var headerBytes = this.GetWavHeader();
+            var headerBytes = this.GetWavHeaderFromCache();
             var outs = new byte[_headerLen + _pcmLength];
             Array.Copy(headerBytes, 0, outs, 0, _headerLen - 1);
             Array.Copy(_pcmAudioBytes, 0, outs, _headerLen, _pcmLength - 1);

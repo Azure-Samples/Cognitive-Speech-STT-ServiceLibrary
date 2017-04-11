@@ -17,6 +17,7 @@ namespace SpeechConsole.Web
 
         //static string URI = "https://opgwebsilk.chinacloudsites.cn/api/Silk?locale=zh-cn&withIntent=false";
         static string URI = "https://opgwebsilk.azurewebsites.net/api/Silk?locale=zh-cn&withIntent=false";
+        //static string URI = "https://opgwebsilk-opgwebsilkslo.azurewebsites.net/api/Silk?locale=zh-cn&withIntent=false";
 
         public static string SendAudioFile(Byte[] bytes, int count)
         {

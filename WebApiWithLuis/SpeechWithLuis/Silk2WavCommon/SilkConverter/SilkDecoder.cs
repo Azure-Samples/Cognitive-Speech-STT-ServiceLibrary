@@ -29,7 +29,8 @@ namespace Silk2WavCommon.SilkConverter
             byte[] jBuffers,
             int size,
             short** outBuffer,
-            int* length
+            int* length,
+            int sampleRate
          );
 
         public static int RunConvert(byte[] inputs, int inputLen, out byte[] outpus, out int outputLen)
@@ -40,7 +41,7 @@ namespace Silk2WavCommon.SilkConverter
             {
                 short* buffer_y;
                 int length;
-                var returnValue = SilkDecoderToPcm(inputs, inputLen, &buffer_y, &length);
+                var returnValue = SilkDecoderToPcm(inputs, inputLen, &buffer_y, &length, 16000);
                 buffers = new byte[length * 2];
                 //Marshal.Copy(Marshal.AllocHGlobal(b
                 for (int i = 0; i < length; i++)

@@ -37,13 +37,26 @@ class call_dll
         byte[] jBuffers,
         int size,
         short** outBuffer,
-        int* length
+        int* length,
+        int sampleRate
      );
 
     public static void Main()
     {
-        
-        var bytes = PcmReader.GetFileBytes("sunli.silk");
+
+
+       // WavAudioTest();
+        //WavAudioTest();
+        LatencyTest();
+        //bak();
+    }
+
+
+
+
+    static void LatencyTest()
+    {
+        var bytes = PcmReader.GetFileBytes("phpRX7A4h.silk");
         var len = bytes.GetLength(0);
         while (true)
         {
@@ -54,8 +67,14 @@ class call_dll
             stopWatch.Stop();
             Console.WriteLine(outs + " + timeSpan: " + stopWatch.ElapsedMilliseconds);
         }
-       
-        //bak();
+    }
+
+    static void WavAudioTest()
+    {
+        var bytes = PcmReader.GetFileBytes("phpRX7A4h.silk");
+        var len = bytes.GetLength(0);
+        var silk2Wav = new Silk2Wav(bytes, len);
+        PcmWriter.WriteBytes2SpecificFile(silk2Wav.WavBytes, "j8.wav");
     }
 
 
@@ -94,7 +113,7 @@ class call_dll
         {
             short* buffer_y;
             Int32 length;
-            SilkDecoderToPcm(bytes, len, &buffer_y, &length);
+            SilkDecoderToPcm(bytes, len, &buffer_y, &length, 16000);
             buffers = new byte[length * 2];
             //Marshal.Copy(Marshal.AllocHGlobal(buffer_y[0]), buffers, 0 , length);
             for (int i = 0; i < length; i++)
