@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SpeechWithLuis.Src.Exceptions;
 using SpeechWithLuis.Src.Static;
 using System;
 using System.Collections.Generic;
@@ -37,10 +38,18 @@ namespace SpeechWithLuis.Src.Services
         {
             using (var client = new HttpClient())
             {
-                var reponse = await client.GetAsync(string.Format(LuisService.url, this.appId, this.subscriptionKey, this.verbose, text));
-                reponse.EnsureSuccessStatusCode();
-                string responseBody = await reponse.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<dynamic>(responseBody);
+                try
+                {
+                    var reponse = await client.GetAsync(string.Format(LuisService.url, this.appId, this.subscriptionKey, this.verbose, text));
+                    reponse.EnsureSuccessStatusCode();
+                    string responseBody = await reponse.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<dynamic>(responseBody);
+                }
+                catch(Exception e)
+                {
+                    throw new LuisException(1001, "Luis Understanding Error!", e);
+                }
+                
             }
         }
 

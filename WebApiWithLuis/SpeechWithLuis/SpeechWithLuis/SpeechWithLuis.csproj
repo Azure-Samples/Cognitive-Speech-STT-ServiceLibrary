@@ -230,6 +230,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Src\AuthorizationProvider\Authentication.cs" />
     <Compile Include="Src\AuthorizationProvider\CognitiveServicesAuthorizationProvider.cs" />
+    <Compile Include="Src\Exceptions\LuisException.cs" />
+    <Compile Include="Src\Exceptions\SpeechException.cs" />
     <Compile Include="Src\Extension\SpeechServiceExt.cs" />
     <Compile Include="Src\Media\BinaryMediaTypeFormatter.cs" />
     <Compile Include="Src\Model\InputOpusData.cs" />

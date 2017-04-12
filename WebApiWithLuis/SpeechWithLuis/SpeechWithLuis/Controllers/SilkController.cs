@@ -1,4 +1,5 @@
-﻿using Silk2WavCommon.Silk2WavConverter;
+﻿using Silk2WavCommon.Exceptions;
+using Silk2WavCommon.Silk2WavConverter;
 using SpeechWithLuis.Src.Model;
 using SpeechWithLuis.Src.Services;
 using SpeechWithLuis.Src.Static;
@@ -29,38 +30,57 @@ namespace SpeechWithLuis.Controllers
             var arrivalTime = DateTime.UtcNow;
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            var silk2Wav = new Silk2Wav(audioSource, audioSource.Count<byte>());
-            var outs = speechRestService
-                .UseLocale(locale)
-                .SendAudio(silk2Wav.WavBytes, silk2Wav.WavBytesLen);
-            var result = outs.results[0];
-            string lexical = result.name;
-            string content = result.lexical;
-            /*
-            var outs = await speechService.ReconizeAudioStreamAsync(new MemoryStream(audioSource));
-            string lexical = outs.DisplayText;
-            */
-            stopWatch.Stop();
-            tsWhenGetAudioText = stopWatch.ElapsedMilliseconds;
-            dynamic intentions = null;
-
-            if (withIntent)
+            try
             {
-                stopWatch.Restart();
-                intentions = await luisService.GetIntention(lexical);
+                var silk2Wav = new Silk2Wav(audioSource, audioSource.Count<byte>());
+                var outs = speechRestService
+                    .UseLocale(locale)
+                    .SendAudio(silk2Wav.WavBytes, silk2Wav.WavBytesLen);
+                var result = outs.results[0];
+                string lexical = result.name;
+                string content = result.lexical;
+                /*
+                var outs = await speechService.ReconizeAudioStreamAsync(new MemoryStream(audioSource));
+                string lexical = outs.DisplayText;
+                */
                 stopWatch.Stop();
-                tsWhenGetAudioIntention = stopWatch.ElapsedMilliseconds;
-            }
+                tsWhenGetAudioText = stopWatch.ElapsedMilliseconds;
+                dynamic intentions = null;
 
-            return new ResponeModel
+                if (withIntent)
+                {
+                    stopWatch.Restart();
+                    intentions = await luisService.GetIntention(lexical);
+                    stopWatch.Stop();
+                    tsWhenGetAudioIntention = stopWatch.ElapsedMilliseconds;
+                }
+
+                return new ResponeModel
+                {
+                    Text = content,
+                    intentions = intentions,
+                    GetAudioTextLantency = tsWhenGetAudioText,
+                    GetAudioIntentionLantency = tsWhenGetAudioIntention,
+                    ErrorCode = 0,
+                    ErrorMessage = "Status OK.",
+                    ArrivalTime = arrivalTime,
+                    EndTime = DateTime.UtcNow
+                };
+            }
+            catch(BaseException e)
             {
-                Text = content,
-                intentions = intentions,
-                GetAudioTextLantency = tsWhenGetAudioText,
-                GetAudioIntentionLantency = tsWhenGetAudioIntention,
-                ArrivalTime = arrivalTime,
-                EndTime = DateTime.UtcNow
-            };
+                return new ResponeModel
+                {
+                    Text = "",
+                    intentions = null,
+                    GetAudioTextLantency = 0,
+                    GetAudioIntentionLantency = 0,
+                    ErrorCode = e.ErrorCode,
+                    ErrorMessage = e.Message,
+                    ArrivalTime = arrivalTime,
+                    EndTime = DateTime.UtcNow
+                };
+            }
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Silk2WavCommon.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -37,28 +38,36 @@ namespace Silk2WavCommon.SilkConverter
         {
             byte[] buffers;
             int count = 0;
-            unsafe
+            try
             {
-                short* buffer_y;
-                int length;
-                var returnValue = SilkDecoderToPcm(inputs, inputLen, &buffer_y, &length, 16000);
-                buffers = new byte[length * 2];
-                //Marshal.Copy(Marshal.AllocHGlobal(b
-                for (int i = 0; i < length; i++)
+                unsafe
                 {
-                    var temps = BitConverter.GetBytes(buffer_y[i]);
-                    buffers[i * 2] = temps[0];
-                    buffers[i * 2 + 1] = temps[1];
+                    short* buffer_y;
+                    int length;
+                    var returnValue = SilkDecoderToPcm(inputs, inputLen, &buffer_y, &length, 16000);
+                    buffers = new byte[length * 2];
+                    //Marshal.Copy(Marshal.AllocHGlobal(b
+                    for (int i = 0; i < length; i++)
+                    {
+                        var temps = BitConverter.GetBytes(buffer_y[i]);
+                        buffers[i * 2] = temps[0];
+                        buffers[i * 2 + 1] = temps[1];
+                    }
+                    // do free task
+                    CleanShortPointer(buffer_y);
+
+                    count = length * 2;
+                    outpus = buffers;
+                    outputLen = count;
+
+                    return returnValue;
                 }
-                // do free task
-                CleanShortPointer(buffer_y);
-
-                count = length * 2;
-                outpus = buffers;
-                outputLen = count;
-
-                return returnValue;
             }
+            catch (Exception e)
+            {
+                throw new ConvertionException(1000, "Silk Decode Error!", e);
+            }
+            
         }
 
         private byte[] _silkBytes;

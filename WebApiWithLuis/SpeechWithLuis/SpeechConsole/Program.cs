@@ -48,10 +48,24 @@ class call_dll
        // WavAudioTest();
         //WavAudioTest();
         LatencyTest();
+        //var test = finallyBlock();
+        //test = 3;
         //bak();
     }
 
-
+    static int finallyBlock()
+    {
+        int i = 0;
+        try
+        {
+            return i;
+        }
+        finally
+        {
+            i = 5;
+            //return 0;
+        }
+    }
 
 
     static void LatencyTest()

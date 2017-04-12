@@ -19,6 +19,8 @@ namespace SpeechWithLuis.Src.Model
 
         public int ErrorCode { get; set; }
 
+        public string ErrorMessage { get; set; }
+
         public DateTime ArrivalTime { get; set; }
 
         public DateTime EndTime { get; set; }

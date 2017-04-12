@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SpeechWithLuis.Src.AuthorizationProvider;
+using SpeechWithLuis.Src.Exceptions;
 using SpeechWithLuis.Src.Static;
 using System;
 using System.Collections.Generic;
@@ -107,15 +108,24 @@ namespace SpeechWithLuis.Src.Services
             }
 
             var responseString = "";
-            using (WebResponse response = request.GetResponse())
-            {
-                using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+            try
+            {     
+                using (WebResponse response = request.GetResponse())
                 {
-                    responseString = sr.ReadToEnd();
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+                    {
+                        responseString = sr.ReadToEnd();
+                    }
+
+                    //Console.WriteLine(responseString);
                 }
 
-                //Console.WriteLine(responseString);
             }
+            catch(Exception e)
+            {
+                throw new SpeechException(1002, "Speech To Text Error!!", e);
+            }
+            
 
             //return JsonConvert.DeserializeObject<dynamic>(responseString);
             return JObject.Parse(responseString);
