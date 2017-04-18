@@ -28,10 +28,11 @@ namespace SpeechWithLuis.Controllers
             long tsWhenGetAudioText = 0;
             long tsWhenGetAudioIntention = 0;
             var arrivalTime = DateTime.UtcNow;
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
+             
             try
             {
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
                 var silk2Wav = new Silk2Wav(audioSource, audioSource.Count<byte>());
                 var outs = speechRestService
                     .UseLocale(locale)
@@ -61,8 +62,8 @@ namespace SpeechWithLuis.Controllers
                     intentions = intentions,
                     GetAudioTextLantency = tsWhenGetAudioText,
                     GetAudioIntentionLantency = tsWhenGetAudioIntention,
-                    ErrorCode = 0,
-                    ErrorMessage = "Status OK.",
+                    StatusCode = 0,
+                    StatusMessage = "Status OK.",
                     ArrivalTime = arrivalTime,
                     EndTime = DateTime.UtcNow
                 };
@@ -75,8 +76,8 @@ namespace SpeechWithLuis.Controllers
                     intentions = null,
                     GetAudioTextLantency = 0,
                     GetAudioIntentionLantency = 0,
-                    ErrorCode = e.ErrorCode,
-                    ErrorMessage = e.Message,
+                    StatusCode = e.ErrorCode,
+                    StatusMessage = e.Message,
                     ArrivalTime = arrivalTime,
                     EndTime = DateTime.UtcNow
                 };
