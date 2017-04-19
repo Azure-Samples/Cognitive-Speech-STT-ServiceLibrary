@@ -194,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AzureController.cs" />
+    <Compile Include="Controllers\SilkAuthController.cs" />
     <Compile Include="Controllers\SilkController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
