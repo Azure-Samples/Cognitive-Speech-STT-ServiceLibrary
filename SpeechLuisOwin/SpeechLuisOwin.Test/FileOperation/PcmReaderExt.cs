@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpeechLuisOwin.Test.FileOperation
 {
-    public class PcmReader
+    public class PcmReaderExt
     {
         public static string path = @"phpBV6Z6a.silk";
 

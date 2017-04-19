@@ -48,7 +48,7 @@ namespace SpeechLuisOwin.Test.SilkTest
                 string _ContentType = "audio/wav";
                 client1.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_ContentType));
                 //client1.DefaultRequestHeaders.Add("", );
-                var bytes = PcmReader.GetFileBytes("phpRX7A4h.silk");
+                var bytes = PcmReaderExt.GetFileBytes("phpRX7A4h.silk");
                 var byteContent = new ByteArrayContent(bytes);
                 //byteContent.Headers.Add();
                 var req1 = await client.PostAsync("api/Silk?locale=zh-cn&withIntent=false", byteContent);
@@ -76,7 +76,7 @@ namespace SpeechLuisOwin.Test.SilkTest
                 var req = await client.GetAsync("/api/Azure");
                 //var req =   await server.CreateRequest("/api/Azure").GetAsync();
                 var token = JsonConvert.DeserializeObject<string>(await req.Content.ReadAsStringAsync());
-                var bytes = PcmReader.GetFileBytes("phpRX7A4h.silk");
+                var bytes = PcmReaderExt.GetFileBytes("phpRX7A4h.silk");
                 var outs = AudioPost.SendAudioFile(bytes, baseAddress + "api/Silk?locale=zh-cn&withIntent=false", token);
                 //var outs = await req1.Content.ReadAsStringAsync();
 
@@ -103,7 +103,7 @@ namespace SpeechLuisOwin.Test.SilkTest
         [TestMethod]
         public void TestMethod4()
         {
-            var bytes = PcmReader.GetFileBytes("phpRX7A4h.silk");
+            var bytes = PcmReaderExt.GetFileBytes("phpRX7A4h.silk");
             var len = bytes.GetLength(0);
             var silk2Wav = new Silk2Wav(bytes, len);
             PcmWriter.WriteBytes2SpecificFile(silk2Wav.WavBytes, "j8.wav");
@@ -119,7 +119,7 @@ namespace SpeechLuisOwin.Test.SilkTest
                 var token = JsonConvert.DeserializeObject<string>(await req.Content.ReadAsStringAsync());
                 var web = server.CreateRequest("api/Silk?locale=zh-cn&withIntent=false");
                 web.AddHeader("Authorization", "Bearer " + token);
-                var bytes = PcmReader.GetFileBytes("phpRX7A4h.silk");
+                var bytes = PcmReaderExt.GetFileBytes("phpRX7A4h.silk");
                 web.And(request => request.Content = new ByteArrayContent(bytes));
                 var req1 = await web.PostAsync();
                 var outs = await req1.Content.ReadAsStringAsync();
