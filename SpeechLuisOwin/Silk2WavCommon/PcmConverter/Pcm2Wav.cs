@@ -98,14 +98,14 @@ namespace Silk2WavCommon.PcmConverter
 
         private byte[] GetWavHeaderFromCache()
         {
-            if (headerCache == null)
+            if(headerCache == null)
             {
                 headerCache = GetWavHeader();
                 //_headerLen = headerCache.Count();
             }
             else
             {
-                if (_sampleRateCache.Equals(_sampleRate) && _bitsPerSampleCache.Equals(_bitsPerSample) && _numOfChannelCache.Equals(_numOfChannel))
+                if(_sampleRateCache.Equals(_sampleRate) && _bitsPerSampleCache.Equals(_bitsPerSample) && _numOfChannelCache.Equals(_numOfChannel))
                 {
                     _headerLen = headerCache.Count();
                     return headerCache;

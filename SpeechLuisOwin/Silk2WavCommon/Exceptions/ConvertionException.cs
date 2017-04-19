@@ -8,7 +8,7 @@ namespace Silk2WavCommon.Exceptions
 {
     public class ConvertionException : BaseException
     {
-        public ConvertionException() { }
+        public ConvertionException(){}
 
         public ConvertionException(int code, string message) : base(code, message)
         {
