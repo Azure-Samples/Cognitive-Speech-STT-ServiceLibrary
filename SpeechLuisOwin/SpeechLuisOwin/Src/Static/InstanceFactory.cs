@@ -11,6 +11,8 @@ namespace SpeechLuisOwin.Src.Static
 
         public static LuisService LuisService = new LuisService();
 
+        public static AADTokenProvider AADTokenProvider = new AADTokenProvider();
+
         public static SpeechService CreateSpeechServiceWithLocale(string locale = "zh-cn")
         {
             return new SpeechService(locale);

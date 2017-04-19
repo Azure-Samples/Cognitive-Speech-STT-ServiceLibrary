@@ -12,8 +12,8 @@ namespace SpeechLuisOwin
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseAuth();
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseRoute((config) => {               
                 config.MapHttpAttributeRoutes();
                 config.Routes.MapHttpRoute(

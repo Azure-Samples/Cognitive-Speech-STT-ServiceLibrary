@@ -4,7 +4,6 @@ using System;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
-using Microsoft.Owin.Testing;
 
 namespace SpeechLuisOwin.Test
 {
@@ -14,7 +13,7 @@ namespace SpeechLuisOwin.Test
         [TestMethod]
         public async Task TestMethod1()
         {
-            string baseAddress = "http://localhost:61857/";
+            string baseAddress = "http://localhost:5000/";
             // using (var server = TestServer.Create<Startup>())
             using (WebApp.Start<Startup>(baseAddress))
             {
@@ -28,5 +27,7 @@ namespace SpeechLuisOwin.Test
                 Assert.AreEqual(2, array.Length);
             }
         }
+
+
     }
 }

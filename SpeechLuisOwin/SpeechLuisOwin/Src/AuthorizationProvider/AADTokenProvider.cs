@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using SpeechLuisOwin.Src.Static;
+using System;
 using System.Threading.Tasks;
 
 namespace SpeechLuisOwin.Src.AuthorizationProvider
@@ -25,9 +26,16 @@ namespace SpeechLuisOwin.Src.AuthorizationProvider
             this.key = Configurations.aad_Key;
             this.authUri = Configurations.aad_AuthUri;
             this.resource = Configurations.aad_Resource;
-
-            this.clientCred = new ClientCredential(clientId, key);
-            this.authenticationContext = new AuthenticationContext(authUri, false);
+            try
+            {
+                this.clientCred = new ClientCredential(clientId, key);
+                this.authenticationContext = new AuthenticationContext(authUri, false);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            
 
 
         }

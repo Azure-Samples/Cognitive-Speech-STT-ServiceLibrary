@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace SpeechLuisOwin.Controllers
 {
+    [Authorize]
     public class SilkController : ApiController
     {
         private SpeechRestService speechRestService = InstanceFactory.SpeechRestService;
@@ -20,7 +21,7 @@ namespace SpeechLuisOwin.Controllers
         private SpeechService speechService = InstanceFactory.CreateSpeechServiceWithLocale();
 
         [HttpPost]
-        public async Task<dynamic> Post([FromBody]byte[] audioSource, string locale, bool withIntent = true)
+        public async Task<dynamic> Post([FromBody]byte[] audioSource, string locale = "zh-cn", bool withIntent = true)
         {
             long tsWhenGetAudioText = 0;
             long tsWhenGetAudioIntention = 0;
