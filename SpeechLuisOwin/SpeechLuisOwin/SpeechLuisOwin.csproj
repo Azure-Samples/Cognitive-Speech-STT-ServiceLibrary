@@ -189,7 +189,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AzureController.cs" />
     <Compile Include="Controllers\SilkController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -200,6 +199,8 @@
     <Compile Include="Src\AuthorizationProvider\CognitiveServicesAuthorizationProvider.cs" />
     <Compile Include="Src\Exceptions\LuisException.cs" />
     <Compile Include="Src\Exceptions\SpeechException.cs" />
+    <Compile Include="Src\Ext\Auth.cs" />
+    <Compile Include="Src\Ext\Http.cs" />
     <Compile Include="Src\Media\BinaryMediaTypeFormatter.cs" />
     <Compile Include="Src\Model\InputOpusData.cs" />
     <Compile Include="Src\Model\LuisEntity.cs" />
