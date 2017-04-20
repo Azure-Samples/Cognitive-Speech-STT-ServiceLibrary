@@ -222,8 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\OpgWebSilk-OpgSilkAuth - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\OpgWebSilk-OpgSilkAuth - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\OpgWebSilkHK - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\OpgWebSilkHK - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
