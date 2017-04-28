@@ -1,4 +1,5 @@
-﻿using Microsoft.Bing.Speech;
+﻿
+using Microsoft.Bing.Speech;
 using SpeechLuisOwin.Src.AuthorizationProvider;
 using SpeechLuisOwin.Src.Static;
 using System;
@@ -6,10 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Common.Interface.IService;
 
 namespace SpeechLuisOwin.Src.Services
 {
-    public class SpeechService
+    public class SpeechService : ISpeechService
     {
         /// <summary>
         /// Short phrase mode URL
@@ -60,7 +62,7 @@ namespace SpeechLuisOwin.Src.Services
         /// </summary>
         /// <param name="audioStream"></param>
         /// <returns></returns>
-        public async Task<RecognitionPhrase> ReconizeAudioStreamAsync(Stream audioStream)
+        async Task<RecognitionPhrase> ISpeechService.ReconizeAudioStreamAsync(Stream audioStream)
         {
             var t = new TaskCompletionSource<RecognitionPhrase>();
             await ReconizeAudioStream(audioStream, null, (result) => {

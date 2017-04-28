@@ -1,4 +1,5 @@
-﻿using Silk2WavCommon.Exceptions;
+﻿using Common.Interface.IService;
+using Silk2WavCommon.Exceptions;
 using Silk2WavCommon.Silk2WavConverter;
 using SpeechLuisOwin.Src.Model;
 using SpeechLuisOwin.Src.Services;
@@ -14,11 +15,11 @@ namespace SpeechLuisOwin.Controllers
     [Authorize]
     public class SilkAuthController : ApiController
     {
-        private SpeechRestService speechRestService = InstanceFactory.SpeechRestService;
+        private ISpeechRestService speechRestService = InstanceFactory.SpeechRestService;
 
-        private LuisService luisService = InstanceFactory.LuisService;
+        private ILuisService luisService = InstanceFactory.LuisService;
 
-        private SpeechService speechService = InstanceFactory.CreateSpeechServiceWithLocale();
+        private ISpeechService speechService = InstanceFactory.CreateSpeechServiceWithLocale();
 
         [HttpPost]
         public async Task<dynamic> Post([FromBody]byte[] audioSource, string locale = "zh-cn", bool withIntent = true)

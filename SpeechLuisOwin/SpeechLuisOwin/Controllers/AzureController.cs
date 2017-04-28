@@ -8,10 +8,17 @@ namespace SpeechLuisOwin.Controllers
 {
     public class AzureController : ApiController
     {
+        private AADTokenProvider _tokenProvider;
+
+        public AzureController(AADTokenProvider tokenProvider)
+        {
+            _tokenProvider = tokenProvider;
+        }
+
         public async Task<string> Get()
         {
-            var getter = new AADTokenProvider();
-            return await getter.GetAccessTokenFromAAD();
+            //var getter = new AADTokenProvider();
+            return await _tokenProvider.GetAccessTokenFromAAD();
         }
 
         // GET api/values/5

@@ -5,10 +5,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using Common.Interface.IService;
 
 namespace SpeechLuisOwin.Src.Services
 {
-    public class SpeechRestService
+    public class SpeechRestService : ISpeechRestService
     {
         private static string baseUri = "https://speech.platform.bing.com/recognize";
 
@@ -38,7 +39,7 @@ namespace SpeechLuisOwin.Src.Services
 
         //private static string subKey = "1da1bed1e00a46c5a3a953235417381c";
 
-        public dynamic SendAudio(Stream stream)
+        dynamic ISpeechRestService.SendAudio(Stream stream)
         {
             stream.Position = 0;
             var request = (HttpWebRequest)HttpWebRequest.Create(uriForUsing);
@@ -82,7 +83,7 @@ namespace SpeechLuisOwin.Src.Services
             return JObject.Parse(responseString);
         }
 
-        public dynamic SendAudio(byte[] audioArray, int length)
+        dynamic ISpeechRestService.SendAudio(byte[] audioArray, int length)
         {
             var request = (HttpWebRequest)HttpWebRequest.Create(uriForUsing);
             request.SendChunked = true;
@@ -123,7 +124,7 @@ namespace SpeechLuisOwin.Src.Services
             return JObject.Parse(responseString);
         }
 
-        public SpeechRestService UseLocale(string locale)
+        ISpeechRestService ISpeechRestService.UseLocale(string locale)
         {
             uriForUsing = uriForUsing.Replace("&locale=en-us", "&locale=" + locale);
             return this;

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Common.Interface.IService;
+using Newtonsoft.Json;
 using SpeechLuisOwin.Src.Exceptions;
 using SpeechLuisOwin.Src.Static;
 using System;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpeechLuisOwin.Src.Services
 {
-    public class LuisService
+    public class LuisService : ILuisService
     {
         private static readonly string url = "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/{0}?subscription-key={1}&verbose={2}&q={3}";
 
@@ -30,7 +31,12 @@ namespace SpeechLuisOwin.Src.Services
 
 
 
-        public async Task<dynamic> GetIntention(string text)
+        public async Task<dynamic> GetIntentions(string text)
+        {
+            return null;  
+        }
+
+        async Task<dynamic> ILuisService.GetIntention(string text)
         {
             using (var client = new HttpClient())
             {
@@ -41,13 +47,12 @@ namespace SpeechLuisOwin.Src.Services
                     string responseBody = await reponse.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<dynamic>(responseBody);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     throw new LuisException(1001, "Luis Understanding Error!", e);
                 }
-                
+
             }
         }
-
     }
 }
