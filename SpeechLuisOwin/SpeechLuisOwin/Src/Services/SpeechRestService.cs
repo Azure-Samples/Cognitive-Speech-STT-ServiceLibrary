@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Common.Interface.IService;
+using SpeechLuisOwin.Src.AuthorizationProvider;
 
 namespace SpeechLuisOwin.Src.Services
 {
@@ -14,6 +15,8 @@ namespace SpeechLuisOwin.Src.Services
         private static string baseUri = "https://speech.platform.bing.com/recognize";
 
         private static string uriForUsing;
+
+        public Authentication _authentication;
 
         static SpeechRestService()
         {
@@ -30,9 +33,14 @@ namespace SpeechLuisOwin.Src.Services
             requestUri += @"&requestid=" + Guid.NewGuid().ToString();
 
             uriForUsing = requestUri;
+
         }
 
-       
+        public SpeechRestService(Authentication authentication)
+        {
+            _authentication = authentication;
+        }
+
         private string host = @"speech.platform.bing.com";
 
         private string contentType = @"audio/wav; codec=""audio/pcm""; samplerate=16000";
@@ -49,7 +57,7 @@ namespace SpeechLuisOwin.Src.Services
             request.ProtocolVersion = HttpVersion.Version11;
             request.Host = host;
             request.ContentType = contentType;
-            request.Headers["Authorization"] = "Bearer " + InstanceFactory.Authentication.GetAccessToken();
+            request.Headers["Authorization"] = "Bearer " + _authentication.GetAccessToken();
 
             byte[] buffer = null;
             int bytesRead = 0;
@@ -92,7 +100,7 @@ namespace SpeechLuisOwin.Src.Services
             request.ProtocolVersion = HttpVersion.Version11;
             request.Host = host;
             request.ContentType = contentType;
-            request.Headers["Authorization"] = "Bearer " + InstanceFactory.Authentication.GetAccessToken();
+            request.Headers["Authorization"] = "Bearer " + _authentication.GetAccessToken();
             using (Stream requestStream = request.GetRequestStream())
             {
                 requestStream.Write(audioArray, 0, audioArray.Count<byte>());

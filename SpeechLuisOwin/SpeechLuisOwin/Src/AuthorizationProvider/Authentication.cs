@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace SpeechLuisOwin.Src.AuthorizationProvider
 {
@@ -25,7 +21,7 @@ namespace SpeechLuisOwin.Src.AuthorizationProvider
         public Authentication(string subscriptionKey)
         {
             this.subscriptionKey = subscriptionKey;
-            this.token = FetchToken(FetchTokenUri, subscriptionKey).Result;
+            this.token = FetchToken(FetchTokenUri, subscriptionKey);
 
             // renew the token every specfied minutes
             accessTokenRenewer = new Timer(new TimerCallback(OnTokenExpiredCallback),
@@ -41,7 +37,7 @@ namespace SpeechLuisOwin.Src.AuthorizationProvider
 
         private void RenewAccessToken()
         {
-            this.token = FetchToken(FetchTokenUri, this.subscriptionKey).Result;
+            this.token = FetchToken(FetchTokenUri, this.subscriptionKey);
             Console.WriteLine("Renewed token.");
         }
 
@@ -68,7 +64,7 @@ namespace SpeechLuisOwin.Src.AuthorizationProvider
             }
         }
 
-        private async Task<string> FetchToken(string fetchUri, string subscriptionKey)
+        private string FetchToken(string fetchUri, string subscriptionKey)
         {
             try
             {

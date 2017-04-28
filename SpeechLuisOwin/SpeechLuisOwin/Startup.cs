@@ -8,7 +8,9 @@ using SpeechLuisOwin.Src.Ioc;
 using Microsoft.Owin;
 using Microsoft.Extensions.DependencyInjection;
 using SpeechLuisOwin.Src.AuthorizationProvider;
-using System.Web.Http.Dependencies;
+using Common.Interface.IService;
+using SpeechLuisOwin.Src.Services;
+using SpeechLuisOwin.Src.Static;
 
 [assembly: OwinStartup(typeof(SpeechLuisOwin.Startup))]
 namespace SpeechLuisOwin
@@ -18,10 +20,15 @@ namespace SpeechLuisOwin
         public void Configuration(IAppBuilder app)
         {
             // ioc part
-            IocHelper.BuildServiceProvider( services =>
+            IocHelper.BuildServiceProvider( collection =>
             {
-                services.AddTransient<AADTokenProvider>();
-                return services;
+                // http://stackoverflow.com/questions/38138100/what-is-the-difference-between-services-addtransient-service-addscope-and-servi
+                collection.AddTransient<AADTokenProvider>();
+                collection.AddSingleton(new Authentication(Configurations.speechSubKey));
+                collection.AddSingleton<ILuisService, LuisService>();
+                collection.AddSingleton<ISpeechRestService, SpeechRestService>();
+                collection.AddSingleton<ISpeechService, SpeechService>();
+                return collection;
             });
 
             // middleware part

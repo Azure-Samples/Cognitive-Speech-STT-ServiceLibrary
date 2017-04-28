@@ -14,11 +14,19 @@ namespace SpeechLuisOwin.Controllers
 {
     public class SilkController : ApiController
     {
-        private ISpeechRestService speechRestService = InstanceFactory.SpeechRestService;
+        private ISpeechRestService _speechRestService;
 
-        private ILuisService luisService = InstanceFactory.LuisService;
+        private ILuisService _luisService;
 
-        private ISpeechService speechService = InstanceFactory.CreateSpeechServiceWithLocale();
+        private ISpeechService _speechService;
+
+
+        public SilkController(ISpeechRestService speechRestService, ILuisService luisService, ISpeechService speechService)
+        {
+            _speechRestService = speechRestService;
+            _luisService = luisService;
+            _speechService = speechService;
+        }
 
         [HttpPost]
         public async Task<dynamic> Post([FromBody]byte[] audioSource, string locale = "zh-cn", bool withIntent = true)
@@ -32,7 +40,7 @@ namespace SpeechLuisOwin.Controllers
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
                 var silk2Wav = new Silk2Wav(audioSource, audioSource.Count<byte>());
-                var outs = speechRestService
+                var outs = _speechRestService
                     .UseLocale(locale)
                     .SendAudio(silk2Wav.WavBytes, silk2Wav.WavBytesLen);
                 var result = outs.results[0];
@@ -49,7 +57,7 @@ namespace SpeechLuisOwin.Controllers
                 if (withIntent)
                 {
                     stopWatch.Restart();
-                    intentions = await luisService.GetIntention(lexical);
+                    intentions = await _luisService.GetIntention(lexical);
                     stopWatch.Stop();
                     tsWhenGetAudioIntention = stopWatch.ElapsedMilliseconds;
                 }

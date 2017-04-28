@@ -35,9 +35,6 @@ namespace SpeechLuisOwin.Src.AuthorizationProvider
             {
                 throw e;
             }
-            
-
-
         }
 
         public async Task<string> GetAccessTokenFromAAD()
@@ -46,8 +43,5 @@ namespace SpeechLuisOwin.Src.AuthorizationProvider
             AuthenticationResult authenticationResult = await authenticationContext.AcquireTokenAsync(resource, this.clientCred);
             return authenticationResult.AccessToken;
         }
-
-
-
     }
 }

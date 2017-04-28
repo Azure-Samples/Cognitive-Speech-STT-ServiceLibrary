@@ -29,13 +29,6 @@ namespace SpeechLuisOwin.Src.Services
             this.verbose = verbose;
         }
 
-
-
-        public async Task<dynamic> GetIntentions(string text)
-        {
-            return null;  
-        }
-
         async Task<dynamic> ILuisService.GetIntention(string text)
         {
             using (var client = new HttpClient())
