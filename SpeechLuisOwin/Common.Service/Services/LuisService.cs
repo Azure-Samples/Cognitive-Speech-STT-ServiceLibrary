@@ -1,7 +1,7 @@
 ﻿using Common.Interface.IService;
+using Common.Service.Exceptions;
+using Common.Service.Model;
 using Newtonsoft.Json;
-using SpeechLuisOwin.Src.Exceptions;
-using SpeechLuisOwin.Src.Static;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -20,7 +20,14 @@ namespace SpeechLuisOwin.Src.Services
 
         //private string  text = "";
 
-        public LuisService() : this(Configurations.luisAppId, Configurations.luisSubKey) { }
+        private LuisModel _luisModel;
+
+
+
+        public LuisService(LuisModel model) : this(model.LuisAppId, model.LuisSubKey)
+        {
+            _luisModel = model;
+        }
 
         public LuisService(string appId, string subKey, bool verbose = true)
         {

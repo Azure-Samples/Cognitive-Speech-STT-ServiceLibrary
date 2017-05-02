@@ -1,7 +1,6 @@
-﻿using Silk2WavCommon.Exceptions;
-using System;
+﻿using System;
 
-namespace SpeechLuisOwin.Src.Exceptions
+namespace Common.Service.Exceptions
 {
     public class LuisException : BaseException
     {

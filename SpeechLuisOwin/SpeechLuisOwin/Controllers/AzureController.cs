@@ -1,6 +1,5 @@
-﻿
-using SpeechLuisOwin.Src.AuthorizationProvider;
-using System.Collections.Generic;
+﻿using Common.Service.AuthorizationProvider;
+using Common.Service.Model;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -15,7 +14,7 @@ namespace SpeechLuisOwin.Controllers
             _tokenProvider = tokenProvider;
         }
 
-        public async Task<string> Get()
+        public async Task<ServiceAuthenticationResultModel> Get()
         {
             //var getter = new AADTokenProvider();
             return await _tokenProvider.GetAccessTokenFromAAD();

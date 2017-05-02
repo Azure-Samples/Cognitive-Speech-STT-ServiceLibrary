@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Bing.Speech;
 
-namespace SpeechLuisOwin.Src.AuthorizationProvider
+namespace Common.Service.AuthorizationProvider
 {
     /// <summary>
     /// Cognitive Services Authorization Provider.

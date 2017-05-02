@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 
-namespace SpeechLuisOwin.Src.AuthorizationProvider
+namespace Common.Service.AuthorizationProvider
 {
     public class Authentication
     {

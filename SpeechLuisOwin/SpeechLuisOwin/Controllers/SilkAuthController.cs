@@ -1,9 +1,7 @@
 ﻿using Common.Interface.IService;
-using Silk2WavCommon.Exceptions;
+using Common.Service.Exceptions;
 using Silk2WavCommon.Silk2WavConverter;
-using SpeechLuisOwin.Src.Model;
-using SpeechLuisOwin.Src.Services;
-using SpeechLuisOwin.Src.Static;
+using SpeechWithLuis.Src.Model;
 using System;
 using System.Diagnostics;
 using System.Linq;

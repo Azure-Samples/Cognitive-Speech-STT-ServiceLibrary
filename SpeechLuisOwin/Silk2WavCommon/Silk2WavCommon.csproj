@@ -43,8 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Exceptions\BaseException.cs" />
-    <Compile Include="Exceptions\ConvertionException.cs" />
     <Compile Include="FileOperation\PcmReader.cs" />
     <Compile Include="FileOperation\PcmWriter.cs" />
     <Compile Include="PcmConverter\Pcm2Wav.cs" />
@@ -56,6 +54,15 @@
     <Content Include="SilkConverter\decoderdll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Service\Common.Service.csproj">
+      <Project>{31ED4D13-6402-40C4-9266-0BE7B568F4F1}</Project>
+      <Name>Common.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

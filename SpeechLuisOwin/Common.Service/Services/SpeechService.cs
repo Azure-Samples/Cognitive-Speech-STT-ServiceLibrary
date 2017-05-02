@@ -1,13 +1,13 @@
 ﻿
 using Microsoft.Bing.Speech;
-using SpeechLuisOwin.Src.AuthorizationProvider;
-using SpeechLuisOwin.Src.Static;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Common.Interface.IService;
+using Common.Service.AuthorizationProvider;
+using Common.Service.Model;
 
 namespace SpeechLuisOwin.Src.Services
 {
@@ -40,21 +40,16 @@ namespace SpeechLuisOwin.Src.Services
 
         private readonly Preferences preferences;
 
-        /// <summary>
-        /// constrcutor
-        /// </summary>
-        public SpeechService()
-        {
-            preferences = new Preferences(locale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(Configurations.speechSubKey));
-        }
+        private SpeechModel _speechModel;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="locale">lang para</param>
-        public SpeechService(string mylocale)
+        public SpeechService(SpeechModel model)
         {
-            preferences = new Preferences(mylocale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(Configurations.speechSubKey));
+            _speechModel = model;
+            preferences = new Preferences(_speechModel.Locale, ShortPhraseUrl, new CognitiveServicesAuthorizationProvider(_speechModel.SpeechSubKey));
         }
 
         /// <summary>

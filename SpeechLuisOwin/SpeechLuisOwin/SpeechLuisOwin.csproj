@@ -52,12 +52,6 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bing.Messaging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bing.Speech.2.0.2\lib\net45\Microsoft.Bing.Messaging.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bing.Speech, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bing.Speech.2.0.2\lib\net45\Microsoft.Bing.Speech.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -177,25 +171,12 @@
     <Compile Include="Src\Ioc\DefaultDependencyResolver.cs" />
     <Compile Include="Src\Ioc\IocHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Src\AuthorizationProvider\AADTokenProvider.cs" />
-    <Compile Include="Src\AuthorizationProvider\Authentication.cs" />
-    <Compile Include="Src\AuthorizationProvider\CognitiveServicesAuthorizationProvider.cs" />
-    <Compile Include="Src\Exceptions\LuisException.cs" />
-    <Compile Include="Src\Exceptions\SpeechException.cs" />
     <Compile Include="Src\Ext\Auth.cs" />
     <Compile Include="Src\Ext\Http.cs" />
     <Compile Include="Src\Logger\Logger.cs" />
     <Compile Include="Src\Media\BinaryMediaTypeFormatter.cs" />
     <Compile Include="Src\MiddleWare\RouteMiddleware.cs" />
-    <Compile Include="Src\Model\InputOpusData.cs" />
-    <Compile Include="Src\Model\LuisEntity.cs" />
-    <Compile Include="Src\Model\LuisIntent.cs" />
-    <Compile Include="Src\Model\OutPutOpusData.cs" />
-    <Compile Include="Src\Model\PostParms.cs" />
     <Compile Include="Src\Model\ResponeModel.cs" />
-    <Compile Include="Src\Services\LuisService.cs" />
-    <Compile Include="Src\Services\SpeechRestService.cs" />
-    <Compile Include="Src\Services\SpeechService.cs" />
     <Compile Include="Src\Static\Configurations.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -219,6 +200,10 @@
     <ProjectReference Include="..\Common.Interface\Common.Interface.csproj">
       <Project>{ABD40C36-5111-4643-8DA7-1D0966B33278}</Project>
       <Name>Common.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common.Service\Common.Service.csproj">
+      <Project>{31ED4D13-6402-40C4-9266-0BE7B568F4F1}</Project>
+      <Name>Common.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Silk2WavCommon\Silk2WavCommon.csproj">
       <Project>{9c38a9d7-851a-419f-a618-d88b4f8020d1}</Project>

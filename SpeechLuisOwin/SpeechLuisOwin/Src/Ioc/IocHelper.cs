@@ -10,8 +10,6 @@ namespace SpeechLuisOwin.Ioc
 {
     public static class IocHelper
     {
-        //private static  ServiceCollection _serviceCollection = new ServiceCollection();
-
         static IServiceProvider _serviceProvider;
 
         public static IServiceProvider ServiceProvider

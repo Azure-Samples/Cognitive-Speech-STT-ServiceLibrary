@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
-using SpeechLuisOwin.Src.Exceptions;
-using SpeechLuisOwin.Src.Static;
 using System;
 using System.IO;
 using System.Linq;
 using System.Net;
 using Common.Interface.IService;
-using SpeechLuisOwin.Src.AuthorizationProvider;
+using Common.Service.Exceptions;
+using Common.Service.AuthorizationProvider;
 
 namespace SpeechLuisOwin.Src.Services
 {

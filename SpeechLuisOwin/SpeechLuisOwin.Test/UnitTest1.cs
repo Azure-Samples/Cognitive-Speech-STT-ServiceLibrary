@@ -4,6 +4,7 @@ using System;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using SpeechLuisOwin.Test.Model;
 
 namespace SpeechLuisOwin.Test
 {
@@ -22,9 +23,9 @@ namespace SpeechLuisOwin.Test
                     BaseAddress = new Uri(baseAddress),
                 };
 
-                var r = await client.GetAsync("/Api/Values");
-                var array = JsonConvert.DeserializeObject<string[]>(await r.Content.ReadAsStringAsync());
-                Assert.AreEqual(2, array.Length);
+                var r = await client.GetAsync("/Api/Azure");
+                var auth = JsonConvert.DeserializeObject<ServiceAuthenticationResultTestModel>(await r.Content.ReadAsStringAsync());
+                Assert.AreEqual(2, auth.AccessToken.Length);
             }
         }
 

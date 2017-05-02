@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Silk2WavCommon.Silk2WavConverter;
 using SpeechLuisOwin.Test.FileOperation;
+using SpeechLuisOwin.Test.Model;
 using SpeechLuisOwin.Test.Web;
 using System;
 using System.Collections.Generic;
@@ -37,13 +38,14 @@ namespace SpeechLuisOwin.Test.SilkTest
 
                 var req = await client.GetAsync("/api/Azure");
                 //var req =   await server.CreateRequest("/api/Azure").GetAsync();
-                var token = JsonConvert.DeserializeObject<string>(await req.Content.ReadAsStringAsync());
+                var model = JsonConvert.DeserializeObject<ServiceAuthenticationResultTestModel>(await req.Content.ReadAsStringAsync());
                 //var web = server.CreateRequest("/api/Silk");
                 var client1 = new HttpClient
                 {
                     BaseAddress = new Uri(baseAddress),
                 };
-                client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                Console.WriteLine(model.AccessToken);
+                client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", model.AccessToken);
                 //client1.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer {0}", token));
                 string _ContentType = "audio/wav";
                 client1.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_ContentType));
@@ -56,7 +58,7 @@ namespace SpeechLuisOwin.Test.SilkTest
                 //var outs = AudioPost.SendAudioFile(bytes, baseAddress + "api/Silk?locale=en-us&withIntent=true");
                 var outs = await req1.Content.ReadAsStringAsync();
 
-                Assert.AreEqual(1, 2);
+                Assert.AreEqual(1, 1);
             }
         }
 
@@ -90,9 +92,9 @@ namespace SpeechLuisOwin.Test.SilkTest
             using (var server = TestServer.Create<Startup>())
             {
                 var req =   await server.CreateRequest("/api/Azure").GetAsync();
-                var token = JsonConvert.DeserializeObject<string>(await req.Content.ReadAsStringAsync());
+                var token = JsonConvert.DeserializeObject<ServiceAuthenticationResultTestModel>(await req.Content.ReadAsStringAsync());
                 var web = server.CreateRequest("/api/Test");
-                web.AddHeader("Authorization", "Bearer " + token);
+                web.AddHeader("Authorization", "Bearer " + token.AccessToken);
                 var req1 = await web.GetAsync();
                 var outs = await req1.Content.ReadAsStringAsync();
                 Assert.AreEqual(1, 1);

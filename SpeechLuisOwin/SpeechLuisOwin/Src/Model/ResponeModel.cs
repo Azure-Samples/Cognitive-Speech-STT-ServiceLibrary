@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SpeechLuisOwin.Src.Model
+namespace SpeechWithLuis.Src.Model
 {
     public class ResponeModel
     {
