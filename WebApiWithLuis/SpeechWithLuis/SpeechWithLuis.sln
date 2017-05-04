@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechWithLuis", "SpeechWithLuis\SpeechWithLuis.csproj", "{A668CBAE-6C87-44E9-9B8A-D22355740955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechConsoleOnlyForTest", "SpeechConsole\SpeechConsoleOnlyForTest.csproj", "{194D2935-4D7A-4A65-A4FF-5F6D3DA63271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silk2WavCommon", "Silk2WavCommon\Silk2WavCommon.csproj", "{8633BD9B-E8AA-4459-930F-10BDF9BFA654}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A668CBAE-6C87-44E9-9B8A-D22355740955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A668CBAE-6C87-44E9-9B8A-D22355740955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A668CBAE-6C87-44E9-9B8A-D22355740955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A668CBAE-6C87-44E9-9B8A-D22355740955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194D2935-4D7A-4A65-A4FF-5F6D3DA63271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194D2935-4D7A-4A65-A4FF-5F6D3DA63271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194D2935-4D7A-4A65-A4FF-5F6D3DA63271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194D2935-4D7A-4A65-A4FF-5F6D3DA63271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8633BD9B-E8AA-4459-930F-10BDF9BFA654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8633BD9B-E8AA-4459-930F-10BDF9BFA654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8633BD9B-E8AA-4459-930F-10BDF9BFA654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8633BD9B-E8AA-4459-930F-10BDF9BFA654}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
